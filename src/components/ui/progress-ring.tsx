@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 interface ProgressRingProps {
   value: number
   size?: number
@@ -9,10 +11,11 @@ interface ProgressRingProps {
 }
 
 export default function ProgressRing({ value, size = 120, strokeWidth = 8, label, color }: ProgressRingProps) {
+  const id = useId()
   const radius = (size - strokeWidth) / 2
   const circumference = radius * 2 * Math.PI
   const offset = circumference - (value / 100) * circumference
-  const gradientId = `ring-gradient-${Math.random().toString(36).slice(2, 7)}`
+  const gradientId = `ring-gradient-${id}`
 
   const getColors = () => {
     if (color) return { start: color, end: color }
