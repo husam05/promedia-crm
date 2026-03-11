@@ -72,7 +72,7 @@ export default function FinancialPage() {
       return
     }
 
-    const fc = (n: number) => n.toLocaleString() + ' ر.س'
+    const fc = (n: number) => n.toLocaleString() + ' د.ع'
 
     printWindow.document.write(`
       <!DOCTYPE html>
@@ -126,7 +126,7 @@ export default function FinancialPage() {
           <div class="header">
             <h1>ProMedia</h1>
             <p>نظام إدارة العملاء الذكي - التقرير المالي</p>
-            <p class="date">${new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <p class="date">${new Date().toLocaleDateString('ar-IQ', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
           </div>
 
           ${data.pricingSignal ? '<div class="alert-box">إشارة تسعير: معدل التحصيل أقل من 70% لمدة 3 أشهر متتالية - يُنصح بمراجعة الأسعار</div>' : ''}
@@ -182,7 +182,7 @@ export default function FinancialPage() {
 
           <div class="footer">
             <p>ProMedia - نظام إدارة العملاء الذكي</p>
-            <p>تقرير مالي تلقائي - ${new Date().toLocaleDateString('ar-SA')}</p>
+            <p>تقرير مالي تلقائي - ${new Date().toLocaleDateString('ar-IQ')}</p>
           </div>
         </div>
       </body>
@@ -214,7 +214,7 @@ export default function FinancialPage() {
   }
 
   if (!data) return null
-  const formatCurrency = (n: number) => `${n.toLocaleString()} ر.س`
+  const formatCurrency = (n: number) => `${n.toLocaleString()} د.ع`
 
   return (
     <div className="flex min-h-screen">

@@ -106,24 +106,24 @@ export default function DashboardPage() {
           <div class="header">
             <h1>ProMedia</h1>
             <p>نظام إدارة العملاء الذكي</p>
-            <p>المملكة العربية السعودية</p>
+            <p>جمهورية العراق - بغداد</p>
             <div class="receipt-num">إيصال دفعة: ${payment.id.toUpperCase()}</div>
           </div>
           <div class="info-grid">
             <div class="info-item"><label>معرف العميل</label><span>${payment.clientId}</span></div>
             <div class="info-item"><label>الحالة</label><span class="status-badge status-${payment.status}">${paymentStatusConfig[payment.status]?.label || payment.status}</span></div>
-            <div class="info-item"><label>تاريخ الاستحقاق</label><span>${new Date(payment.dueDate).toLocaleDateString('ar-SA')}</span></div>
-            <div class="info-item"><label>تاريخ الدفع</label><span>${payment.paidDate ? new Date(payment.paidDate).toLocaleDateString('ar-SA') : 'لم يتم الدفع'}</span></div>
+            <div class="info-item"><label>تاريخ الاستحقاق</label><span>${new Date(payment.dueDate).toLocaleDateString('ar-IQ')}</span></div>
+            <div class="info-item"><label>تاريخ الدفع</label><span>${payment.paidDate ? new Date(payment.paidDate).toLocaleDateString('ar-IQ') : 'لم يتم الدفع'}</span></div>
           </div>
           ${payment.delayDays > 0 ? '<p style="background:#fef2f2;color:#dc2626;padding:8px 12px;border-radius:8px;font-size:12px;margin:8px 0;">تأخير: ' + payment.delayDays + ' يوم</p>' : ''}
           <table>
             <thead><tr><th>الوصف</th><th>المبلغ</th></tr></thead>
-            <tbody><tr><td>دفعة شهرية</td><td>${payment.amount.toLocaleString()} ر.س</td></tr></tbody>
+            <tbody><tr><td>دفعة شهرية</td><td>${payment.amount.toLocaleString()} د.ع</td></tr></tbody>
           </table>
           <div class="totals">
-            <div class="total-row"><span>المبلغ</span><span>${payment.amount.toLocaleString()} ر.س</span></div>
-            <div class="total-row"><span>ضريبة القيمة المضافة (15%)</span><span>${tax.toLocaleString()} ر.س</span></div>
-            <div class="total-row final"><span>الإجمالي شامل الضريبة</span><span>${total.toLocaleString()} ر.س</span></div>
+            <div class="total-row"><span>المبلغ</span><span>${payment.amount.toLocaleString()} د.ع</span></div>
+            <div class="total-row"><span>ضريبة القيمة المضافة (15%)</span><span>${tax.toLocaleString()} د.ع</span></div>
+            <div class="total-row final"><span>الإجمالي شامل الضريبة</span><span>${total.toLocaleString()} د.ع</span></div>
           </div>
           <div class="footer">
             <p>شكراً لتعاملكم معنا</p>
@@ -199,7 +199,7 @@ export default function DashboardPage() {
           <div class="header">
             <h1>ProMedia</h1>
             <p>نظام إدارة العملاء الذكي - تقرير لوحة التحكم</p>
-            <p class="date">${new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
+            <p class="date">${new Date().toLocaleDateString('ar-IQ', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
           </div>
 
           <div class="kpi-grid">
@@ -220,11 +220,11 @@ export default function DashboardPage() {
           <div class="section">
             <h2>الملخص المالي</h2>
             <div class="fin-grid">
-              <div class="fin-item"><div class="label">إجمالي الإيرادات</div><div class="value" style="color:#059669">${data.financial.totalRevenue.toLocaleString()} ر.س</div></div>
-              <div class="fin-item"><div class="label">المتوقع</div><div class="value" style="color:#2563eb">${data.financial.expectedRevenue.toLocaleString()} ر.س</div></div>
-              <div class="fin-item"><div class="label">المحصّل</div><div class="value" style="color:#059669">${totalCollected.toLocaleString()} ر.س</div></div>
-              <div class="fin-item"><div class="label">المصروفات</div><div class="value" style="color:#dc2626">${data.health.totalExpenses.toLocaleString()} ر.س</div></div>
-              <div class="fin-item"><div class="label">المعلّق</div><div class="value" style="color:#d97706">${data.financial.outstandingPayments.toLocaleString()} ر.س</div></div>
+              <div class="fin-item"><div class="label">إجمالي الإيرادات</div><div class="value" style="color:#059669">${data.financial.totalRevenue.toLocaleString()} د.ع</div></div>
+              <div class="fin-item"><div class="label">المتوقع</div><div class="value" style="color:#2563eb">${data.financial.expectedRevenue.toLocaleString()} د.ع</div></div>
+              <div class="fin-item"><div class="label">المحصّل</div><div class="value" style="color:#059669">${totalCollected.toLocaleString()} د.ع</div></div>
+              <div class="fin-item"><div class="label">المصروفات</div><div class="value" style="color:#dc2626">${data.health.totalExpenses.toLocaleString()} د.ع</div></div>
+              <div class="fin-item"><div class="label">المعلّق</div><div class="value" style="color:#d97706">${data.financial.outstandingPayments.toLocaleString()} د.ع</div></div>
               <div class="fin-item"><div class="label">صحة الشركة</div><div class="value" style="color:${data.health.score >= 70 ? '#059669' : '#d97706'}">${data.health.score}%</div></div>
             </div>
           </div>
@@ -234,14 +234,14 @@ export default function DashboardPage() {
             <table>
               <thead><tr><th>العميل</th><th>المبلغ</th><th>الاستحقاق</th><th>الحالة</th><th>التأخير</th></tr></thead>
               <tbody>
-                ${data.recentPayments.map(p => '<tr><td>' + p.clientId + '</td><td>' + p.amount.toLocaleString() + ' ر.س</td><td>' + new Date(p.dueDate).toLocaleDateString('ar-SA') + '</td><td><span class="badge badge-' + (p.status === 'paid' ? 'green' : p.status === 'pending' ? 'amber' : 'red') + '">' + (paymentStatusConfig[p.status]?.label || p.status) + '</span></td><td>' + (p.delayDays > 0 ? p.delayDays + ' يوم' : '-') + '</td></tr>').join('')}
+                ${data.recentPayments.map(p => '<tr><td>' + p.clientId + '</td><td>' + p.amount.toLocaleString() + ' د.ع</td><td>' + new Date(p.dueDate).toLocaleDateString('ar-IQ') + '</td><td><span class="badge badge-' + (p.status === 'paid' ? 'green' : p.status === 'pending' ? 'amber' : 'red') + '">' + (paymentStatusConfig[p.status]?.label || p.status) + '</span></td><td>' + (p.delayDays > 0 ? p.delayDays + ' يوم' : '-') + '</td></tr>').join('')}
               </tbody>
             </table>
           </div>
 
           <div class="footer">
             <p>ProMedia - نظام إدارة العملاء الذكي</p>
-            <p>تقرير تلقائي - ${new Date().toLocaleDateString('ar-SA')}</p>
+            <p>تقرير تلقائي - ${new Date().toLocaleDateString('ar-IQ')}</p>
           </div>
         </div>
       </body>
@@ -277,8 +277,8 @@ export default function DashboardPage() {
 
   const today = new Date()
   const isFirstOfMonth = today.getDate() === 1
-  const dayName = today.toLocaleDateString('ar-SA', { weekday: 'long' })
-  const dateStr = today.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })
+  const dayName = today.toLocaleDateString('ar-IQ', { weekday: 'long' })
+  const dateStr = today.toLocaleDateString('ar-IQ', { year: 'numeric', month: 'long', day: 'numeric' })
 
   return (
     <div className="flex min-h-screen">
@@ -339,15 +339,15 @@ export default function DashboardPage() {
             <div className="grid grid-cols-4 gap-4 mt-3">
               <div>
                 <p className="text-xs text-gray-400">الإيرادات المتوقعة</p>
-                <p className="text-lg font-bold text-white">{data.financial.expectedRevenue.toLocaleString()} ر.س</p>
+                <p className="text-lg font-bold text-white">{data.financial.expectedRevenue.toLocaleString()} د.ع</p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">المبالغ المعلقة</p>
-                <p className="text-lg font-bold text-amber-400">{data.financial.outstandingPayments.toLocaleString()} ر.س</p>
+                <p className="text-lg font-bold text-amber-400">{data.financial.outstandingPayments.toLocaleString()} د.ع</p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">المصروفات</p>
-                <p className="text-lg font-bold text-red-400">{data.health.totalExpenses.toLocaleString()} ر.س</p>
+                <p className="text-lg font-bold text-red-400">{data.health.totalExpenses.toLocaleString()} د.ع</p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">عملاء مخاطر</p>
@@ -371,7 +371,7 @@ export default function DashboardPage() {
             title="هامش الربح الشهري"
             value={`${data.health.profitMargin}%`}
             trend={data.health.profitMargin >= 20 ? 'up' : 'down'}
-            trendValue={`${data.health.totalRevenue - data.health.totalExpenses > 0 ? '+' : ''}${(data.health.totalRevenue - data.health.totalExpenses).toLocaleString()} ر.س`}
+            trendValue={`${data.health.totalRevenue - data.health.totalExpenses > 0 ? '+' : ''}${(data.health.totalRevenue - data.health.totalExpenses).toLocaleString()} د.ع`}
             color={data.health.profitMargin >= 20 ? 'blue' : 'amber'}
             icon="💹"
           />
@@ -435,8 +435,8 @@ export default function DashboardPage() {
                   return (
                     <tr key={payment.id} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
                       <td className="py-3 px-3 text-sm text-white">{payment.clientId}</td>
-                      <td className="py-3 px-3 text-sm text-white font-medium">{payment.amount.toLocaleString()} ر.س</td>
-                      <td className="py-3 px-3 text-sm text-gray-400">{new Date(payment.dueDate).toLocaleDateString('ar-SA')}</td>
+                      <td className="py-3 px-3 text-sm text-white font-medium">{payment.amount.toLocaleString()} د.ع</td>
+                      <td className="py-3 px-3 text-sm text-gray-400">{new Date(payment.dueDate).toLocaleDateString('ar-IQ')}</td>
                       <td className="py-3 px-3">
                         <span className={`px-2.5 py-1 rounded-full text-xs ${statusCfg.color}`}>
                           {statusCfg.label}

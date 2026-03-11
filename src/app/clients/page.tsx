@@ -103,23 +103,23 @@ export default function ClientsPage() {
           <div class="header">
             <h1>ProMedia</h1>
             <p>نظام إدارة العملاء الذكي</p>
-            <p>المملكة العربية السعودية</p>
+            <p>جمهورية العراق - بغداد</p>
             <div class="receipt-num">إيصال رقم: ${receipt.receiptNumber}</div>
           </div>
           <div class="info-grid">
             <div class="info-item"><label>العميل</label><span>${receipt.clientName}</span></div>
             <div class="info-item"><label>الشركة</label><span>${receipt.company}</span></div>
-            <div class="info-item"><label>تاريخ الدفع</label><span>${new Date(receipt.paymentDate).toLocaleDateString('ar-SA')}</span></div>
+            <div class="info-item"><label>تاريخ الدفع</label><span>${new Date(receipt.paymentDate).toLocaleDateString('ar-IQ')}</span></div>
             <div class="info-item"><label>طريقة الدفع</label><span>${paymentMethodLabels[receipt.paymentMethod] || receipt.paymentMethod}</span></div>
           </div>
           <table>
             <thead><tr><th>الوصف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead>
-            <tbody>${receipt.items.map(item => '<tr><td>' + item.description + '</td><td style="text-align:center">' + item.quantity + '</td><td style="text-align:center">' + item.unitPrice.toLocaleString() + ' ر.س</td><td style="text-align:left">' + item.total.toLocaleString() + ' ر.س</td></tr>').join('')}</tbody>
+            <tbody>${receipt.items.map(item => '<tr><td>' + item.description + '</td><td style="text-align:center">' + item.quantity + '</td><td style="text-align:center">' + item.unitPrice.toLocaleString() + ' د.ع</td><td style="text-align:left">' + item.total.toLocaleString() + ' د.ع</td></tr>').join('')}</tbody>
           </table>
           <div class="totals">
-            <div class="total-row"><span>المبلغ قبل الضريبة</span><span>${receipt.amount.toLocaleString()} ر.س</span></div>
-            <div class="total-row"><span>ضريبة القيمة المضافة (15%)</span><span>${receipt.tax.toLocaleString()} ر.س</span></div>
-            <div class="total-row final"><span>الإجمالي شامل الضريبة</span><span>${receipt.totalWithTax.toLocaleString()} ر.س</span></div>
+            <div class="total-row"><span>المبلغ قبل الضريبة</span><span>${receipt.amount.toLocaleString()} د.ع</span></div>
+            <div class="total-row"><span>ضريبة القيمة المضافة (15%)</span><span>${receipt.tax.toLocaleString()} د.ع</span></div>
+            <div class="total-row final"><span>الإجمالي شامل الضريبة</span><span>${receipt.totalWithTax.toLocaleString()} د.ع</span></div>
           </div>
           <div class="footer">
             <p>شكراً لتعاملكم معنا</p>
@@ -252,7 +252,7 @@ export default function ClientsPage() {
           <div className="glass-card p-4">
             <p className="text-[11px] text-gray-500">الإيراد الشهري</p>
             <p className="text-2xl font-bold text-purple-400 mt-1">{stats.totalRevenue.toLocaleString()}</p>
-            <p className="text-[10px] text-gray-600">ر.س</p>
+            <p className="text-[10px] text-gray-600">د.ع</p>
           </div>
         </div>
 
@@ -463,11 +463,11 @@ export default function ClientsPage() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                       <div>
                         <p className="text-xs text-gray-400">قيمة العقد</p>
-                        <p className="text-sm text-white font-medium">{client.contractValue.toLocaleString()} ر.س</p>
+                        <p className="text-sm text-white font-medium">{client.contractValue.toLocaleString()} د.ع</p>
                       </div>
                       <div>
                         <p className="text-xs text-gray-400">القيمة مدى الحياة</p>
-                        <p className="text-sm text-white font-medium">{client.lifetimeValue.toLocaleString()} ر.س</p>
+                        <p className="text-sm text-white font-medium">{client.lifetimeValue.toLocaleString()} د.ع</p>
                       </div>
                       <div>
                         <p className="text-xs text-gray-400">عدد التأخيرات</p>
@@ -487,15 +487,15 @@ export default function ClientsPage() {
 
                     <div className="mt-3 flex flex-wrap items-center gap-3">
                       <span className="text-xs text-gray-500 bg-gray-800 px-3 py-1.5 rounded-lg">
-                        العقد: {new Date(client.contractStart).toLocaleDateString('ar-SA')} - {new Date(client.contractEnd).toLocaleDateString('ar-SA')}
+                        العقد: {new Date(client.contractStart).toLocaleDateString('ar-IQ')} - {new Date(client.contractEnd).toLocaleDateString('ar-IQ')}
                       </span>
                       {client.lastPaymentDate && (
                         <span className="text-xs text-gray-500 bg-gray-800 px-3 py-1.5 rounded-lg">
-                          آخر دفعة: {new Date(client.lastPaymentDate).toLocaleDateString('ar-SA')}
+                          آخر دفعة: {new Date(client.lastPaymentDate).toLocaleDateString('ar-IQ')}
                         </span>
                       )}
                       <span className="text-xs text-gray-500 bg-gray-800 px-3 py-1.5 rounded-lg">
-                        تاريخ التسجيل: {new Date(client.createdAt).toLocaleDateString('ar-SA')}
+                        تاريخ التسجيل: {new Date(client.createdAt).toLocaleDateString('ar-IQ')}
                       </span>
                     </div>
 
@@ -556,11 +556,11 @@ export default function ClientsPage() {
                             <div key={r.id} className="flex items-center justify-between p-2.5 bg-gray-800/50 rounded-lg">
                               <div className="flex items-center gap-3">
                                 <span className="text-xs font-mono text-emerald-400">{r.receiptNumber}</span>
-                                <span className="text-xs text-gray-400">{new Date(r.paymentDate).toLocaleDateString('ar-SA')}</span>
+                                <span className="text-xs text-gray-400">{new Date(r.paymentDate).toLocaleDateString('ar-IQ')}</span>
                                 <span className="text-xs text-gray-500">{paymentMethodLabels[r.paymentMethod]}</span>
                               </div>
                               <div className="flex items-center gap-3">
-                                <span className="text-sm font-bold text-white">{r.totalWithTax.toLocaleString()} ر.س</span>
+                                <span className="text-sm font-bold text-white">{r.totalWithTax.toLocaleString()} د.ع</span>
                                 <button
                                   onClick={() => handlePrintReceipt(r)}
                                   className="p-1.5 rounded-lg text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"

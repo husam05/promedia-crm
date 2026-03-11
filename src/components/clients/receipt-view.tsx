@@ -136,7 +136,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
             <div className="p-5 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5">المبلغ (ر.س) *</label>
+                  <label className="block text-xs text-gray-400 mb-1.5">المبلغ (د.ع) *</label>
                   <input
                     type="number"
                     value={form.amount}
@@ -200,15 +200,15 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-400">المبلغ</span>
-                      <span className="text-white">{Number(form.amount).toLocaleString()} ر.س</span>
+                      <span className="text-white">{Number(form.amount).toLocaleString()} د.ع</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-400">ضريبة القيمة المضافة (15%)</span>
-                      <span className="text-white">{Math.round(Number(form.amount) * 0.15).toLocaleString()} ر.س</span>
+                      <span className="text-white">{Math.round(Number(form.amount) * 0.15).toLocaleString()} د.ع</span>
                     </div>
                     <div className="flex justify-between text-sm font-bold border-t border-gray-600 pt-1.5">
                       <span className="text-emerald-400">الإجمالي</span>
-                      <span className="text-emerald-400">{Math.round(Number(form.amount) * 1.15).toLocaleString()} ر.س</span>
+                      <span className="text-emerald-400">{Math.round(Number(form.amount) * 1.15).toLocaleString()} د.ع</span>
                     </div>
                   </div>
                 </div>
@@ -234,7 +234,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   <div style={{ textAlign: 'center', borderBottom: '2px dashed #374151', paddingBottom: 20, marginBottom: 20 }}>
                     <h1 style={{ fontSize: 24, color: '#10b981', marginBottom: 4 }}>ProMedia</h1>
                     <p style={{ fontSize: 12, color: '#9ca3af' }}>نظام إدارة العملاء الذكي</p>
-                    <p style={{ fontSize: 11, color: '#9ca3af' }}>المملكة العربية السعودية</p>
+                    <p style={{ fontSize: 11, color: '#9ca3af' }}>جمهورية العراق - بغداد</p>
                     <div style={{ background: '#064e3b', border: '1px solid #059669', borderRadius: 8, padding: '8px 16px', display: 'inline-block', marginTop: 12, fontWeight: 600, color: '#10b981', fontSize: 14 }}>
                       إيصال رقم: {receipt.receiptNumber}
                     </div>
@@ -252,7 +252,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                     </div>
                     <div>
                       <p style={{ fontSize: 11, color: '#9ca3af' }}>تاريخ الدفع</p>
-                      <p style={{ fontSize: 14, fontWeight: 500, color: '#fff' }}>{new Date(receipt.paymentDate).toLocaleDateString('ar-SA')}</p>
+                      <p style={{ fontSize: 14, fontWeight: 500, color: '#fff' }}>{new Date(receipt.paymentDate).toLocaleDateString('ar-IQ')}</p>
                     </div>
                     <div>
                       <p style={{ fontSize: 11, color: '#9ca3af' }}>طريقة الدفع</p>
@@ -275,8 +275,8 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                         <tr key={i}>
                           <td style={{ padding: 10, fontSize: 13, color: '#e5e7eb', borderBottom: '1px solid #1f2937' }}>{item.description}</td>
                           <td style={{ padding: 10, fontSize: 13, color: '#e5e7eb', textAlign: 'center', borderBottom: '1px solid #1f2937' }}>{item.quantity}</td>
-                          <td style={{ padding: 10, fontSize: 13, color: '#e5e7eb', textAlign: 'center', borderBottom: '1px solid #1f2937' }}>{item.unitPrice.toLocaleString()} ر.س</td>
-                          <td style={{ padding: 10, fontSize: 13, color: '#e5e7eb', textAlign: 'left', borderBottom: '1px solid #1f2937' }}>{item.total.toLocaleString()} ر.س</td>
+                          <td style={{ padding: 10, fontSize: 13, color: '#e5e7eb', textAlign: 'center', borderBottom: '1px solid #1f2937' }}>{item.unitPrice.toLocaleString()} د.ع</td>
+                          <td style={{ padding: 10, fontSize: 13, color: '#e5e7eb', textAlign: 'left', borderBottom: '1px solid #1f2937' }}>{item.total.toLocaleString()} د.ع</td>
                         </tr>
                       ))}
                     </tbody>
@@ -286,15 +286,15 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   <div style={{ marginTop: 16, borderTop: '2px dashed #374151', paddingTop: 16 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: 13, color: '#9ca3af' }}>
                       <span>المبلغ قبل الضريبة</span>
-                      <span style={{ color: '#fff' }}>{receipt.amount.toLocaleString()} ر.س</span>
+                      <span style={{ color: '#fff' }}>{receipt.amount.toLocaleString()} د.ع</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: 13, color: '#9ca3af' }}>
                       <span>ضريبة القيمة المضافة (15%)</span>
-                      <span style={{ color: '#fff' }}>{receipt.tax.toLocaleString()} ر.س</span>
+                      <span style={{ color: '#fff' }}>{receipt.tax.toLocaleString()} د.ع</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0 6px', fontSize: 18, fontWeight: 700, color: '#10b981', borderTop: '2px solid #059669', marginTop: 8 }}>
                       <span>الإجمالي شامل الضريبة</span>
-                      <span>{receipt.totalWithTax.toLocaleString()} ر.س</span>
+                      <span>{receipt.totalWithTax.toLocaleString()} د.ع</span>
                     </div>
                   </div>
 

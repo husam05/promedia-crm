@@ -33,7 +33,7 @@ export default function SettingsPage() {
                 <label className="text-xs text-gray-500 block mb-1.5">البريد الإلكتروني</label>
                 <input
                   type="email"
-                  defaultValue="admin@promedia.sa"
+                  defaultValue="admin@promedia.iq"
                   className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/30 transition-colors"
                 />
               </div>
@@ -41,7 +41,7 @@ export default function SettingsPage() {
                 <label className="text-xs text-gray-500 block mb-1.5">العملة</label>
                 <input
                   type="text"
-                  defaultValue="ر.س"
+                  defaultValue="د.ع"
                   className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/30 transition-colors"
                 />
               </div>

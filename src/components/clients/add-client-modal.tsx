@@ -203,12 +203,12 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs text-gray-400 mb-1.5">البريد الإلكتروني *</label>
-                <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className={inputClass('email')} placeholder="info@example.sa" dir="ltr" />
+                <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className={inputClass('email')} placeholder="info@example.iq" dir="ltr" />
                 {errors.email && <p className="text-xs text-red-400 mt-1">{errors.email}</p>}
               </div>
               <div>
                 <label className="block text-xs text-gray-400 mb-1.5">رقم الهاتف *</label>
-                <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className={inputClass('phone')} placeholder="+966500000000" dir="ltr" />
+                <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className={inputClass('phone')} placeholder="+964770000000" dir="ltr" />
                 {errors.phone && <p className="text-xs text-red-400 mt-1">{errors.phone}</p>}
               </div>
             </div>
@@ -239,19 +239,19 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs text-gray-400 mb-1.5">الرسوم الشهرية (ر.س) *</label>
+                <label className="block text-xs text-gray-400 mb-1.5">الرسوم الشهرية (د.ع) *</label>
                 <input type="number" value={form.monthlyFee} onChange={e => setForm({...form, monthlyFee: e.target.value})} className={inputClass('monthlyFee')} placeholder="5000" min="0" />
                 {errors.monthlyFee && <p className="text-xs text-red-400 mt-1">{errors.monthlyFee}</p>}
                 {form.monthlyFee && (
-                  <p className="text-[10px] text-gray-500 mt-1">+ ضريبة {monthlyVAT.toLocaleString()} ر.س = {(Number(form.monthlyFee) + monthlyVAT).toLocaleString()} ر.س</p>
+                  <p className="text-[10px] text-gray-500 mt-1">+ ضريبة {monthlyVAT.toLocaleString()} د.ع = {(Number(form.monthlyFee) + monthlyVAT).toLocaleString()} د.ع</p>
                 )}
               </div>
               <div>
-                <label className="block text-xs text-gray-400 mb-1.5">قيمة العقد الإجمالية (ر.س) *</label>
+                <label className="block text-xs text-gray-400 mb-1.5">قيمة العقد الإجمالية (د.ع) *</label>
                 <input type="number" value={form.contractValue} onChange={e => setForm({...form, contractValue: e.target.value})} className={inputClass('contractValue')} placeholder="60000" min="0" />
                 {errors.contractValue && <p className="text-xs text-red-400 mt-1">{errors.contractValue}</p>}
                 {form.contractValue && (
-                  <p className="text-[10px] text-gray-500 mt-1">+ ضريبة {totalVAT.toLocaleString()} ر.س = {(Number(form.contractValue) + totalVAT).toLocaleString()} ر.س</p>
+                  <p className="text-[10px] text-gray-500 mt-1">+ ضريبة {totalVAT.toLocaleString()} د.ع = {(Number(form.contractValue) + totalVAT).toLocaleString()} د.ع</p>
                 )}
               </div>
             </div>
@@ -279,8 +279,8 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
               <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl p-3 text-xs text-gray-400">
                 <span className="text-emerald-400 font-medium">حساب تلقائي: </span>
                 مدة العقد: {contractMonths} شهر
-                {' '} | القيمة المتوقعة: {autoContractValue.toLocaleString()} ر.س
-                {' '} | شامل الضريبة: {Math.round(autoContractValue * 1.15).toLocaleString()} ر.س
+                {' '} | القيمة المتوقعة: {autoContractValue.toLocaleString()} د.ع
+                {' '} | شامل الضريبة: {Math.round(autoContractValue * 1.15).toLocaleString()} د.ع
               </div>
             )}
           </div>
@@ -338,11 +338,11 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500">بداية العقد</p>
-                  <p className="text-sm text-white">{form.contractStart ? new Date(form.contractStart).toLocaleDateString('ar-SA') : '-'}</p>
+                  <p className="text-sm text-white">{form.contractStart ? new Date(form.contractStart).toLocaleDateString('ar-IQ') : '-'}</p>
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500">نهاية العقد</p>
-                  <p className="text-sm text-white">{form.contractEnd ? new Date(form.contractEnd).toLocaleDateString('ar-SA') : '-'}</p>
+                  <p className="text-sm text-white">{form.contractEnd ? new Date(form.contractEnd).toLocaleDateString('ar-IQ') : '-'}</p>
                 </div>
               </div>
               {form.notes && (
@@ -361,20 +361,20 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">الرسوم الشهرية</span>
-                  <span className="text-white">{Number(form.monthlyFee).toLocaleString()} ر.س</span>
+                  <span className="text-white">{Number(form.monthlyFee).toLocaleString()} د.ع</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">ضريبة شهرية (15%)</span>
-                  <span className="text-gray-300">{monthlyVAT.toLocaleString()} ر.س</span>
+                  <span className="text-gray-300">{monthlyVAT.toLocaleString()} د.ع</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">الشهري شامل الضريبة</span>
-                  <span className="text-white">{(Number(form.monthlyFee) + monthlyVAT).toLocaleString()} ر.س</span>
+                  <span className="text-white">{(Number(form.monthlyFee) + monthlyVAT).toLocaleString()} د.ع</span>
                 </div>
                 <div className="border-t border-gray-700 my-1" />
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">قيمة العقد</span>
-                  <span className="text-white">{Number(form.contractValue).toLocaleString()} ر.س</span>
+                  <span className="text-white">{Number(form.contractValue).toLocaleString()} د.ع</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">مدة العقد</span>
@@ -382,7 +382,7 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
                 </div>
                 <div className="flex justify-between text-sm font-bold border-t border-emerald-500/30 pt-2 mt-1">
                   <span className="text-emerald-400">الإجمالي شامل الضريبة</span>
-                  <span className="text-emerald-400">{(Number(form.contractValue) + totalVAT).toLocaleString()} ر.س</span>
+                  <span className="text-emerald-400">{(Number(form.contractValue) + totalVAT).toLocaleString()} د.ع</span>
                 </div>
               </div>
             </div>

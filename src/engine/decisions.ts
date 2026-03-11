@@ -133,7 +133,7 @@ export function handleEmergency(scenario: string, data: Record<string, unknown>)
       const totalImpact = (data.totalAmount as number) || 0
       return {
         actions: ['تجميد الخدمات للعملاء المتأخرين', 'إرسال إنذار نهائي', 'تفعيل خطة التحصيل الطارئة'],
-        impact: `خسارة متوقعة: ${totalImpact.toLocaleString()} ر.س من ${count} عملاء`,
+        impact: `خسارة متوقعة: ${totalImpact.toLocaleString()} د.ع من ${count} عملاء`,
         recommendations: ['مراجعة شروط الدفع', 'تفعيل الدفع المسبق للعملاء الجدد', 'تنويع قاعدة العملاء']
       }
     }
@@ -149,7 +149,7 @@ export function handleEmergency(scenario: string, data: Record<string, unknown>)
       const revenueLoss = (data.revenueLoss as number) || 0
       return {
         actions: ['محاولة استرجاع العميل', 'تنشيط خطة الطوارئ', 'البحث عن عملاء بديلين'],
-        impact: `خسارة إيرادات شهرية: ${revenueLoss.toLocaleString()} ر.س`,
+        impact: `خسارة إيرادات شهرية: ${revenueLoss.toLocaleString()} د.ع`,
         recommendations: ['تعويض الإيراد خلال 30 يوم', 'تحليل أسباب الإلغاء', 'تحسين برنامج الاحتفاظ بالعملاء']
       }
     }

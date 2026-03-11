@@ -49,7 +49,7 @@ export default function DecisionsPage() {
     const responses: Record<string, { actions: string[]; impact: string; recommendations: string[] }> = {
       multiple_missed_payments: {
         actions: ['تجميد الخدمات للعملاء المتأخرين', 'إرسال إنذار نهائي', 'تفعيل خطة التحصيل الطارئة'],
-        impact: 'خسارة متوقعة: 10,500 ر.س من 4 عملاء',
+        impact: 'خسارة متوقعة: 10,500 د.ع من 4 عملاء',
         recommendations: ['مراجعة شروط الدفع', 'تفعيل الدفع المسبق للعملاء الجدد', 'تنويع قاعدة العملاء'],
       },
       expenses_exceed_revenue: {
@@ -59,7 +59,7 @@ export default function DecisionsPage() {
       },
       large_client_cancellation: {
         actions: ['محاولة استرجاع العميل', 'تنشيط خطة الطوارئ', 'البحث عن عملاء بديلين'],
-        impact: 'خسارة إيرادات شهرية: 12,000 ر.س',
+        impact: 'خسارة إيرادات شهرية: 12,000 د.ع',
         recommendations: ['تعويض الإيراد خلال 30 يوم', 'تحليل أسباب الإلغاء', 'تحسين برنامج الاحتفاظ بالعملاء'],
       },
       employee_leaves: {

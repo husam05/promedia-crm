@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function FinancialOverview({ financial }: Props) {
-  const formatCurrency = (amount: number) => `${amount.toLocaleString()} ر.س`
+  const formatCurrency = (amount: number) => `${amount.toLocaleString()} د.ع`
 
   return (
     <div className="animate-fade-in-up">

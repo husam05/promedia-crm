@@ -37,7 +37,7 @@ export default function ContractsTracker({ contracts }: Props) {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-white">{contract.serviceName}</p>
-                    <p className={`text-[11px] ${style.text} opacity-70`}>قيمة العقد: {contract.value.toLocaleString()} ر.س</p>
+                    <p className={`text-[11px] ${style.text} opacity-70`}>قيمة العقد: {contract.value.toLocaleString()} د.ع</p>
                   </div>
                   <div className="text-left">
                     <p className={`text-xl font-bold ${style.text}`}>{days}</p>

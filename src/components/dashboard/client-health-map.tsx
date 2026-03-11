@@ -65,7 +65,7 @@ export default function ClientHealthMap({ distribution, topClients, riskClients,
                 </span>
                 <div>
                   <p className="text-sm text-white group-hover:text-cyan-300 transition-colors">{client.name}</p>
-                  <p className="text-[10px] text-gray-600">{client.monthlyFee.toLocaleString()} ر.س/شهر</p>
+                  <p className="text-[10px] text-gray-600">{client.monthlyFee.toLocaleString()} د.ع/شهر</p>
                 </div>
               </div>
               <span className="text-sm font-bold text-emerald-400">{client.clientScore}</span>

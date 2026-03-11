@@ -152,12 +152,12 @@ export default function EditClientModal({ isOpen, client, onClose, onSuccess, on
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5">الرسوم الشهرية (ر.س) *</label>
+              <label className="block text-xs text-gray-400 mb-1.5">الرسوم الشهرية (د.ع) *</label>
               <input type="number" value={form.monthlyFee} onChange={e => setForm({...form, monthlyFee: e.target.value})} className={inputClass('monthlyFee')} min="0" />
               {errors.monthlyFee && <p className="text-xs text-red-400 mt-1">{errors.monthlyFee}</p>}
             </div>
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5">قيمة العقد الإجمالية (ر.س) *</label>
+              <label className="block text-xs text-gray-400 mb-1.5">قيمة العقد الإجمالية (د.ع) *</label>
               <input type="number" value={form.contractValue} onChange={e => setForm({...form, contractValue: e.target.value})} className={inputClass('contractValue')} min="0" />
               {errors.contractValue && <p className="text-xs text-red-400 mt-1">{errors.contractValue}</p>}
             </div>

@@ -142,21 +142,21 @@ export default function ReportsPage() {
             <span class="health-badge ${r.healthScore >= 70 ? 'health-good' : r.healthScore >= 50 ? 'health-mid' : 'health-bad'}">
               صحة الشركة: ${r.healthScore}%
             </span>
-            <p class="date-generated">تم الإنشاء: ${new Date(r.generatedAt).toLocaleDateString('ar-SA')}</p>
+            <p class="date-generated">تم الإنشاء: ${new Date(r.generatedAt).toLocaleDateString('ar-IQ')}</p>
           </div>
 
           <div class="kpi-grid">
             <div class="kpi-card">
               <div class="label">الإيرادات</div>
-              <div class="value green">${r.revenue.toLocaleString()} ر.س</div>
+              <div class="value green">${r.revenue.toLocaleString()} د.ع</div>
             </div>
             <div class="kpi-card">
               <div class="label">المصروفات</div>
-              <div class="value red">${r.expenses.toLocaleString()} ر.س</div>
+              <div class="value red">${r.expenses.toLocaleString()} د.ع</div>
             </div>
             <div class="kpi-card">
               <div class="label">الربح</div>
-              <div class="value blue">${r.profit.toLocaleString()} ر.س</div>
+              <div class="value blue">${r.profit.toLocaleString()} د.ع</div>
             </div>
             <div class="kpi-card">
               <div class="label">التحصيل</div>
@@ -191,7 +191,7 @@ export default function ReportsPage() {
 
           <div class="footer">
             <p>ProMedia - نظام إدارة العملاء الذكي</p>
-            <p>تقرير تلقائي - ${new Date().toLocaleDateString('ar-SA')}</p>
+            <p>تقرير تلقائي - ${new Date().toLocaleDateString('ar-IQ')}</p>
           </div>
         </div>
       </body>
@@ -270,7 +270,7 @@ export default function ReportsPage() {
                       صحة: {report.healthScore}%
                     </p>
                     <span className="text-xs text-gray-600 mx-1">|</span>
-                    <p className="text-xs text-gray-400">{report.revenue.toLocaleString()} ر.س</p>
+                    <p className="text-xs text-gray-400">{report.revenue.toLocaleString()} د.ع</p>
                   </div>
                   {/* Processing Status Badge */}
                   <div className="flex items-center gap-1.5 mt-2">
@@ -295,7 +295,7 @@ export default function ReportsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-bold text-white">تقرير الأسبوع: {selectedReport.period}</h2>
-                  <p className="text-xs text-gray-400">تم الإنشاء: {new Date(selectedReport.generatedAt).toLocaleDateString('ar-SA')}</p>
+                  <p className="text-xs text-gray-400">تم الإنشاء: {new Date(selectedReport.generatedAt).toLocaleDateString('ar-IQ')}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <button
@@ -314,15 +314,15 @@ export default function ReportsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">الإيرادات</p>
-                <p className="text-xl font-bold text-emerald-400">{selectedReport.revenue.toLocaleString()} ر.س</p>
+                <p className="text-xl font-bold text-emerald-400">{selectedReport.revenue.toLocaleString()} د.ع</p>
               </div>
               <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">المصروفات</p>
-                <p className="text-xl font-bold text-red-400">{selectedReport.expenses.toLocaleString()} ر.س</p>
+                <p className="text-xl font-bold text-red-400">{selectedReport.expenses.toLocaleString()} د.ع</p>
               </div>
               <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">الربح</p>
-                <p className="text-xl font-bold text-blue-400">{selectedReport.profit.toLocaleString()} ر.س</p>
+                <p className="text-xl font-bold text-blue-400">{selectedReport.profit.toLocaleString()} د.ع</p>
               </div>
               <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">التحصيل</p>
