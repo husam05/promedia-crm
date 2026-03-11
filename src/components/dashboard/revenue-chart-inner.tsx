@@ -7,6 +7,14 @@ interface Props {
 }
 
 export default function RevenueChartInner({ data }: Props) {
+  if (!data || data.length === 0) {
+    return (
+      <div className="glass-card p-5">
+        <p className="text-sm text-gray-500 text-center py-8">لا توجد بيانات للرسم البياني</p>
+      </div>
+    )
+  }
+
   return (
     <div className="glass-card p-5 animate-fade-in-up stagger-3">
       <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">

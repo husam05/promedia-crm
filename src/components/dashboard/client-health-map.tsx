@@ -18,7 +18,7 @@ const categoryLabels: Record<ClientCategory, { label: string; color: string; bgC
 }
 
 export default function ClientHealthMap({ distribution, topClients, riskClients, healthScore }: Props) {
-  const totalClients = distribution.reduce((s, d) => s + d.count, 0)
+  const totalClients = distribution.reduce((s, d) => s + d.count, 0) || 1
 
   return (
     <div className="space-y-4 animate-fade-in-up stagger-4">

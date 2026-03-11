@@ -9,7 +9,9 @@ interface Props {
 }
 
 export default function FinancialOverview({ financial }: Props) {
-  const formatCurrency = (amount: number) => `${amount.toLocaleString()} د.ع`
+  const formatCurrency = (amount: number) => `${(amount ?? 0).toLocaleString()} د.ع`
+
+  if (!financial) return null
 
   return (
     <div className="animate-fade-in-up">
@@ -83,8 +85,8 @@ export default function FinancialOverview({ financial }: Props) {
         <div className="glass-card p-5">
           <h3 className="text-sm font-medium text-gray-400 mb-3">توقعات الإيرادات (3 أشهر)</h3>
           <div className="flex items-end gap-3 h-20">
-            {financial.revenueForcast.map((val, i) => {
-              const maxVal = Math.max(...financial.revenueForcast)
+            {(financial.revenueForcast ?? []).map((val, i) => {
+              const maxVal = Math.max(...(financial.revenueForcast ?? [0]))
               const height = maxVal > 0 ? (val / maxVal) * 100 : 0
               return (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1">

@@ -13,6 +13,7 @@ import { SkeletonStat, SkeletonCard } from '@/components/ui/skeleton'
 import StatusLine from '@/components/ui/status-line'
 import type { StatusType } from '@/components/ui/status-line'
 import NotificationsDropdown from '@/components/ui/notifications-dropdown'
+import SectionErrorBoundary from '@/components/ui/section-error-boundary'
 import { Printer, RefreshCw, BarChart3, LineChart, AlertTriangle } from 'lucide-react'
 
 const paymentStatusConfig: Record<string, { label: string; color: string }> = {
@@ -35,9 +36,15 @@ export default function DashboardPage() {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch('/api/dashboard')
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 15000)
+      const res = await fetch('/api/dashboard', { signal: controller.signal })
+      clearTimeout(timeout)
       if (!res.ok) throw new Error(`API error: ${res.status}`)
       const json = await res.json()
+      if (!json || !json.financial || !json.health) {
+        throw new Error('Invalid dashboard data')
+      }
       setData(json)
       return true
     } catch (err) {
@@ -395,56 +402,69 @@ export default function DashboardPage() {
         )}
 
         {/* KPI Strip */}
-        <div className="grid grid-cols-3 gap-4 mb-6 animate-fade-in-up">
-          <StatCard
-            title="معدل التحصيل"
-            value={`${data.health.collectionRate}%`}
-            trend={data.health.collectionRate >= 70 ? 'up' : 'down'}
-            trendValue={data.health.collectionRate >= 70 ? 'جيد' : 'يحتاج تحسين'}
-            color={data.health.collectionRate >= 70 ? 'emerald' : 'red'}
-            icon={BarChart3}
-          />
-          <StatCard
-            title="هامش الربح الشهري"
-            value={`${data.health.profitMargin}%`}
-            trend={data.health.profitMargin >= 20 ? 'up' : 'down'}
-            trendValue={`${data.health.totalRevenue - data.health.totalExpenses > 0 ? '+' : ''}${(data.health.totalRevenue - data.health.totalExpenses).toLocaleString()} د.ع`}
-            color={data.health.profitMargin >= 20 ? 'blue' : 'amber'}
-            icon={LineChart}
-          />
-          <StatCard
-            title="عدد العملاء المعرضين للخطر"
-            value={data.health.riskClients}
-            subtitle={`من أصل ${data.health.activeClients} عميل نشط`}
-            trend={data.health.riskClients <= 2 ? 'up' : 'down'}
-            trendValue={data.health.riskClients <= 2 ? 'وضع مستقر' : 'يحتاج انتباه'}
-            color={data.health.riskClients <= 2 ? 'emerald' : 'red'}
-            icon={AlertTriangle}
-          />
-        </div>
+        <SectionErrorBoundary fallbackTitle="خطأ في تحميل المؤشرات">
+          <div className="grid grid-cols-3 gap-4 mb-6 animate-fade-in-up">
+            <StatCard
+              title="معدل التحصيل"
+              value={`${data.health.collectionRate}%`}
+              trend={data.health.collectionRate >= 70 ? 'up' : 'down'}
+              trendValue={data.health.collectionRate >= 70 ? 'جيد' : 'يحتاج تحسين'}
+              color={data.health.collectionRate >= 70 ? 'emerald' : 'red'}
+              icon={BarChart3}
+            />
+            <StatCard
+              title="هامش الربح الشهري"
+              value={`${data.health.profitMargin}%`}
+              trend={data.health.profitMargin >= 20 ? 'up' : 'down'}
+              trendValue={`${data.health.totalRevenue - data.health.totalExpenses > 0 ? '+' : ''}${(data.health.totalRevenue - data.health.totalExpenses).toLocaleString()} د.ع`}
+              color={data.health.profitMargin >= 20 ? 'blue' : 'amber'}
+              icon={LineChart}
+            />
+            <StatCard
+              title="عدد العملاء المعرضين للخطر"
+              value={data.health.riskClients}
+              subtitle={`من أصل ${data.health.activeClients} عميل نشط`}
+              trend={data.health.riskClients <= 2 ? 'up' : 'down'}
+              trendValue={data.health.riskClients <= 2 ? 'وضع مستقر' : 'يحتاج انتباه'}
+              color={data.health.riskClients <= 2 ? 'emerald' : 'red'}
+              icon={AlertTriangle}
+            />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Financial + Chart */}
           <div className="lg:col-span-2 space-y-6">
-            <FinancialOverview financial={data.financial} />
-            <RevenueChart data={data.financial.monthlyTrend} />
+            <SectionErrorBoundary fallbackTitle="خطأ في تحميل النظرة المالية">
+              <FinancialOverview financial={data.financial} />
+            </SectionErrorBoundary>
+            <SectionErrorBoundary fallbackTitle="خطأ في تحميل الرسم البياني">
+              <RevenueChart data={data.financial.monthlyTrend} />
+            </SectionErrorBoundary>
           </div>
 
           {/* Right Column - Health + Alerts */}
           <div className="space-y-6">
-            <ClientHealthMap
-              distribution={data.clientDistribution}
-              topClients={data.topClients}
-              riskClients={data.riskClients}
-              healthScore={data.health.score}
-            />
-            <AlertsPanel alerts={data.alerts} />
-            <ContractsTracker contracts={data.expiringContracts} />
+            <SectionErrorBoundary fallbackTitle="خطأ في تحميل صحة العملاء">
+              <ClientHealthMap
+                distribution={data.clientDistribution}
+                topClients={data.topClients}
+                riskClients={data.riskClients}
+                healthScore={data.health.score}
+              />
+            </SectionErrorBoundary>
+            <SectionErrorBoundary fallbackTitle="خطأ في تحميل التنبيهات">
+              <AlertsPanel alerts={data.alerts} />
+            </SectionErrorBoundary>
+            <SectionErrorBoundary fallbackTitle="خطأ في تحميل العقود">
+              <ContractsTracker contracts={data.expiringContracts} />
+            </SectionErrorBoundary>
           </div>
         </div>
 
         {/* Recent Payments Section */}
+        <SectionErrorBoundary fallbackTitle="خطأ في تحميل المدفوعات">
         <div className="mt-6 glass-card p-5 animate-fade-in-up stagger-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
@@ -506,6 +526,7 @@ export default function DashboardPage() {
             </table>
           </div>
         </div>
+        </SectionErrorBoundary>
       </main>
     </div>
   )
