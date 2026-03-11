@@ -66,12 +66,17 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
               نعتذر عن هذا الخطأ. يرجى المحاولة مرة أخرى.
             </p>
 
-            {/* Error details (dev) */}
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {/* Error details */}
+            {this.state.error && (
               <div className="mb-6 p-3 rounded-xl bg-red-500/5 border border-red-500/10 text-right">
                 <p className="text-xs text-red-400/80 font-mono break-all" dir="ltr">
                   {this.state.error.message}
                 </p>
+                {this.state.error.stack && (
+                  <p className="text-[10px] text-red-400/50 font-mono break-all mt-2 max-h-32 overflow-auto" dir="ltr">
+                    {this.state.error.stack.split('\n').slice(0, 5).join('\n')}
+                  </p>
+                )}
               </div>
             )}
 

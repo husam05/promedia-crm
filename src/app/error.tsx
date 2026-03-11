@@ -41,7 +41,7 @@ export default function Error({
           نعتذر عن هذا الخطأ. يرجى المحاولة مرة أخرى.
         </p>
 
-        {process.env.NODE_ENV === 'development' && (
+        {error && (
           <div className="mb-6 p-3 rounded-xl bg-red-500/5 border border-red-500/10 text-right">
             <p className="text-xs text-red-400/80 font-mono break-all" dir="ltr">
               {error.message}
