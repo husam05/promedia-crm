@@ -137,9 +137,11 @@ export default function ClientsPage() {
   const fetchClients = useCallback(async () => {
     try {
       const res = await fetch('/api/clients')
+      if (!res.ok) throw new Error(`API error: ${res.status}`)
       const data = await res.json()
-      setClients(data)
-    } catch {
+      setClients(Array.isArray(data) ? data : [])
+    } catch (err) {
+      console.error('Clients fetch error:', err)
       handleStatus('error', 'فشل في تحميل بيانات العملاء')
     } finally {
       setLoading(false)

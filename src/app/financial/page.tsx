@@ -39,10 +39,12 @@ export default function FinancialPage() {
   const fetchData = useCallback(async () => {
     try {
       const res = await fetch('/api/financial')
+      if (!res.ok) throw new Error(`API error: ${res.status}`)
       const json = await res.json()
       setData(json)
       return true
-    } catch {
+    } catch (err) {
+      console.error('Financial fetch error:', err)
       return false
     } finally {
       setLoading(false)
@@ -219,7 +221,28 @@ export default function FinancialPage() {
     )
   }
 
-  if (!data) return null
+  if (!data) {
+    return (
+      <div className="flex min-h-screen">
+        <Sidebar />
+        <main className="flex-1 p-6 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-gray-400 text-lg mb-3">فشل في تحميل البيانات المالية</p>
+            <button
+              onClick={() => { setLoading(true); fetchData() }}
+              className="px-5 py-2.5 rounded-xl text-sm font-medium text-white transition-all"
+              style={{
+                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(139, 92, 246, 0.2))',
+                border: '1px solid rgba(6, 182, 212, 0.3)',
+              }}
+            >
+              إعادة المحاولة
+            </button>
+          </div>
+        </main>
+      </div>
+    )
+  }
   const formatCurrency = (n: number) => `${n.toLocaleString()} د.ع`
 
   return (

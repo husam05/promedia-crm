@@ -11,6 +11,9 @@
   "keywords": ["crm", "promedia", "arabic"],
   "author": "ProMedia",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "^25.4.0",

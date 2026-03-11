@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ar" dir="rtl" className="dark">
+    <html lang="ar" dir="rtl" className="dark" suppressHydrationWarning>
       <body className={`${notoSansArabic.variable} ${notoSansArabic.className} antialiased noise-overlay`}>
         <ErrorBoundary>
           <ShortcutsProvider>
