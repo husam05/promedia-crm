@@ -9,9 +9,11 @@ import ClientHealthMap from '@/components/dashboard/client-health-map'
 import RevenueChart from '@/components/dashboard/revenue-chart'
 import ContractsTracker from '@/components/dashboard/contracts-tracker'
 import StatCard from '@/components/ui/stat-card'
+import { SkeletonStat, SkeletonCard } from '@/components/ui/skeleton'
 import StatusLine from '@/components/ui/status-line'
 import type { StatusType } from '@/components/ui/status-line'
-import { Printer, RefreshCw, Bell } from 'lucide-react'
+import NotificationsDropdown from '@/components/ui/notifications-dropdown'
+import { Printer, RefreshCw, BarChart3, LineChart, AlertTriangle } from 'lucide-react'
 
 const paymentStatusConfig: Record<string, { label: string; color: string }> = {
   paid: { label: 'مدفوع', color: 'bg-emerald-500/20 text-emerald-400' },
@@ -260,13 +262,34 @@ export default function DashboardPage() {
     return (
       <div className="flex min-h-screen">
         <Sidebar />
-        <main className="flex-1 p-6">
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-white/5 rounded-xl w-48" />
-            <div className="grid grid-cols-4 gap-4">
-              {[1,2,3,4].map(i => <div key={i} className="h-32 bg-white/5 rounded-2xl" />)}
+        <main className="flex-1 p-6 space-y-6">
+          {/* Header skeleton */}
+          <div className="flex items-center justify-between">
+            <div className="space-y-2">
+              <div className="h-7 w-36 bg-white/[0.03] rounded-lg animate-shimmer" />
+              <div className="h-3 w-48 bg-white/[0.03] rounded-md animate-shimmer" />
             </div>
-            <div className="h-72 bg-white/5 rounded-2xl" />
+            <div className="flex items-center gap-2">
+              <div className="h-9 w-28 bg-white/[0.03] rounded-xl animate-shimmer" />
+              <div className="h-9 w-20 bg-white/[0.03] rounded-xl animate-shimmer" />
+            </div>
+          </div>
+
+          {/* KPI Stats skeleton */}
+          <div className="grid grid-cols-3 gap-4">
+            <SkeletonStat count={3} />
+          </div>
+
+          {/* Main content skeleton */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
+            <div className="space-y-6">
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
           </div>
         </main>
       </div>
@@ -310,16 +333,7 @@ export default function DashboardPage() {
               <RefreshCw size={14} />
               تحديث
             </button>
-            <div className="relative">
-              <button className="p-2.5 rounded-xl text-gray-400 hover:text-gray-200 transition-all bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05]">
-                <Bell size={16} />
-              </button>
-              {data.alerts.filter(a => !a.isRead).length > 0 && (
-                <span className="absolute -top-1 -left-1 w-4 h-4 bg-red-500 rounded-full text-[9px] flex items-center justify-center text-white font-medium">
-                  {data.alerts.filter(a => !a.isRead).length}
-                </span>
-              )}
-            </div>
+            <NotificationsDropdown alerts={data.alerts} />
           </div>
         </div>
 
@@ -365,7 +379,7 @@ export default function DashboardPage() {
             trend={data.health.collectionRate >= 70 ? 'up' : 'down'}
             trendValue={data.health.collectionRate >= 70 ? 'جيد' : 'يحتاج تحسين'}
             color={data.health.collectionRate >= 70 ? 'emerald' : 'red'}
-            icon="📊"
+            icon={BarChart3}
           />
           <StatCard
             title="هامش الربح الشهري"
@@ -373,7 +387,7 @@ export default function DashboardPage() {
             trend={data.health.profitMargin >= 20 ? 'up' : 'down'}
             trendValue={`${data.health.totalRevenue - data.health.totalExpenses > 0 ? '+' : ''}${(data.health.totalRevenue - data.health.totalExpenses).toLocaleString()} د.ع`}
             color={data.health.profitMargin >= 20 ? 'blue' : 'amber'}
-            icon="💹"
+            icon={LineChart}
           />
           <StatCard
             title="عدد العملاء المعرضين للخطر"
@@ -382,7 +396,7 @@ export default function DashboardPage() {
             trend={data.health.riskClients <= 2 ? 'up' : 'down'}
             trendValue={data.health.riskClients <= 2 ? 'وضع مستقر' : 'يحتاج انتباه'}
             color={data.health.riskClients <= 2 ? 'emerald' : 'red'}
-            icon="⚠️"
+            icon={AlertTriangle}
           />
         </div>
 
@@ -455,7 +469,7 @@ export default function DashboardPage() {
                             onClick={() => handlePrintPaymentReceipt(payment)}
                             className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600/10 text-emerald-400 rounded-lg hover:bg-emerald-600/20 transition-colors text-xs font-medium"
                           >
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+                            <Printer size={14} />
                             طباعة إيصال
                           </button>
                         ) : (

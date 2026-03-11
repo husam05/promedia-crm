@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { Noto_Sans_Arabic } from 'next/font/google'
+import ErrorBoundary from '@/components/ui/error-boundary'
+import CommandPalette from '@/components/ui/command-palette'
+import ShortcutsProvider from '@/components/ui/shortcuts-provider'
+import ScrollToTop from '@/components/ui/scroll-to-top'
 import './globals.css'
 
 const notoSansArabic = Noto_Sans_Arabic({
@@ -20,6 +24,9 @@ export const metadata: Metadata = {
   description:
     'نظام إدارة علاقات العملاء الذكي من برو ميديا - حلول متكاملة لإدارة العملاء والمشاريع والفواتير بالذكاء الاصطناعي',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -30,7 +37,13 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className="dark">
       <body className={`${notoSansArabic.variable} ${notoSansArabic.className} antialiased noise-overlay`}>
-        {children}
+        <ErrorBoundary>
+          <ShortcutsProvider>
+            <CommandPalette />
+            {children}
+            <ScrollToTop />
+          </ShortcutsProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )

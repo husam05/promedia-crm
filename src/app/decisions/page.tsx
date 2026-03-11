@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react'
 import Sidebar from '@/components/ui/sidebar'
 import AlertBadge from '@/components/ui/alert-badge'
+import { SkeletonStat, SkeletonCard } from '@/components/ui/skeleton'
 import { DecisionRule, AlertSeverity } from '@/types'
+import { CreditCard, TrendingDown, AlertOctagon, UserMinus, type LucideIcon } from 'lucide-react'
 
 interface Decision {
   type: string
@@ -22,11 +24,11 @@ interface DecisionData {
   monthlyExpenses: number
 }
 
-const emergencyScenarios = [
-  { id: 'multiple_missed_payments', label: 'تأخر سداد متعدد', icon: '💳' },
-  { id: 'expenses_exceed_revenue', label: 'المصروفات تتجاوز الإيرادات', icon: '📉' },
-  { id: 'large_client_cancellation', label: 'إلغاء عميل رئيسي', icon: '🚨' },
-  { id: 'employee_leaves', label: 'مغادرة موظف', icon: '👤' },
+const emergencyScenarios: { id: string; label: string; icon: LucideIcon; color: string }[] = [
+  { id: 'multiple_missed_payments', label: 'تأخر سداد متعدد', icon: CreditCard, color: 'text-amber-400' },
+  { id: 'expenses_exceed_revenue', label: 'المصروفات تتجاوز الإيرادات', icon: TrendingDown, color: 'text-red-400' },
+  { id: 'large_client_cancellation', label: 'إلغاء عميل رئيسي', icon: AlertOctagon, color: 'text-red-400' },
+  { id: 'employee_leaves', label: 'مغادرة موظف', icon: UserMinus, color: 'text-purple-400' },
 ]
 
 export default function DecisionsPage() {
@@ -75,11 +77,15 @@ export default function DecisionsPage() {
     return (
       <div className="flex min-h-screen">
         <Sidebar />
-        <main className="flex-1 p-6">
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-white/5 rounded-xl w-48" />
-            <div className="h-64 bg-white/5 rounded-2xl" />
+        <main className="flex-1 p-6 space-y-6">
+          <div className="space-y-2">
+            <div className="h-7 w-48 bg-white/[0.03] rounded-lg animate-shimmer" />
+            <div className="h-3 w-64 bg-white/[0.03] rounded-md animate-shimmer" />
           </div>
+          <div className="grid grid-cols-3 gap-4">
+            <SkeletonStat count={3} />
+          </div>
+          <SkeletonCard />
         </main>
       </div>
     )
@@ -195,21 +201,28 @@ export default function DecisionsPage() {
         {activeTab === 'emergency' && (
           <div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              {emergencyScenarios.map(scenario => (
-                <button
-                  key={scenario.id}
-                  onClick={() => simulateEmergency(scenario.id)}
-                  className={`p-4 rounded-2xl border text-right transition-all duration-200 ${
-                    selectedScenario === scenario.id
-                      ? 'bg-red-500/[0.06] border-red-500/15'
-                      : 'bg-white/[0.02] border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.03]'
-                  }`}
-                >
-                  <span className="text-2xl">{scenario.icon}</span>
-                  <p className="text-sm text-white mt-2">{scenario.label}</p>
-                  <p className="text-xs text-gray-400 mt-1">اضغط للمحاكاة</p>
-                </button>
-              ))}
+              {emergencyScenarios.map(scenario => {
+                const Icon = scenario.icon
+                return (
+                  <button
+                    key={scenario.id}
+                    onClick={() => simulateEmergency(scenario.id)}
+                    className={`p-4 rounded-2xl border text-right transition-all duration-200 group ${
+                      selectedScenario === scenario.id
+                        ? 'bg-red-500/[0.06] border-red-500/15'
+                        : 'bg-white/[0.02] border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.03]'
+                    }`}
+                  >
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                      selectedScenario === scenario.id ? 'bg-red-500/15' : 'bg-white/[0.04] group-hover:bg-white/[0.06]'
+                    } transition-colors`}>
+                      <Icon size={22} className={scenario.color} />
+                    </div>
+                    <p className="text-sm text-white mt-2">{scenario.label}</p>
+                    <p className="text-xs text-gray-400 mt-1">اضغط للمحاكاة</p>
+                  </button>
+                )
+              })}
             </div>
 
             {emergencyResult && (

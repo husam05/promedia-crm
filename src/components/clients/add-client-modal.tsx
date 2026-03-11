@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ClientCategory, ClientStatus } from '@/types'
+import { Check } from 'lucide-react'
 
 interface AddClientModalProps {
   isOpen: boolean
@@ -163,7 +164,7 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
                         : 'bg-white/[0.03] border-white/[0.06] text-gray-600'
                   }`}>
                     {currentStep > step.id ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                      <Check size={20} strokeWidth={2.5} />
                     ) : (
                       step.id
                     )}
@@ -405,7 +406,7 @@ export default function AddClientModal({ isOpen, onClose, onSuccess, onStatusCha
             </button>
           ) : (
             <button onClick={handleSubmit} className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:translate-y-[-1px] flex items-center justify-center gap-2" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.15))', border: '1px solid rgba(16, 185, 129, 0.2)', color: '#10b981' }}>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              <Check size={16} />
               إضافة العميل
             </button>
           )}

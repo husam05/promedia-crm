@@ -1,6 +1,7 @@
 'use client'
 
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, type LucideIcon } from 'lucide-react'
+import { type ReactNode } from 'react'
 
 interface StatCardProps {
   title: string
@@ -9,7 +10,7 @@ interface StatCardProps {
   trend?: 'up' | 'down' | 'neutral'
   trendValue?: string
   color?: 'emerald' | 'blue' | 'amber' | 'red' | 'purple'
-  icon?: string
+  icon?: LucideIcon | ReactNode
 }
 
 const colorConfig = {
@@ -71,8 +72,8 @@ export default function StatCard({ title, value, subtitle, trend, trendValue, co
           {subtitle && <p className="text-[11px] text-gray-500 mt-1">{subtitle}</p>}
         </div>
         {icon && (
-          <span className={`text-2xl ${cfg.iconBg} w-10 h-10 flex items-center justify-center rounded-xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300`}>
-            {icon}
+          <span className={`${cfg.iconBg} ${cfg.accent} w-10 h-10 flex items-center justify-center rounded-xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300`}>
+            {typeof icon === 'function' ? (() => { const IconComponent = icon as LucideIcon; return <IconComponent size={20} /> })() : icon}
           </span>
         )}
       </div>

@@ -2,6 +2,7 @@
 
 import { FinancialSummary } from '@/types'
 import StatCard from '@/components/ui/stat-card'
+import { DollarSign, TrendingUp, CheckCircle2, Clock } from 'lucide-react'
 
 interface Props {
   financial: FinancialSummary
@@ -24,14 +25,14 @@ export default function FinancialOverview({ financial }: Props) {
           trend="up"
           trendValue="+7% عن الشهر السابق"
           color="emerald"
-          icon="💰"
+          icon={DollarSign}
         />
         <StatCard
           title="الإيرادات المتوقعة"
           value={formatCurrency(financial.expectedRevenue)}
           subtitle="بناءً على احتمالية الدفع"
           color="blue"
-          icon="📈"
+          icon={TrendingUp}
         />
         <StatCard
           title="المبالغ المحصلة"
@@ -40,7 +41,7 @@ export default function FinancialOverview({ financial }: Props) {
           trend={financial.collectionRate >= 70 ? 'up' : 'down'}
           trendValue={`${financial.collectionRate}%`}
           color={financial.collectionRate >= 70 ? 'emerald' : 'amber'}
-          icon="✅"
+          icon={CheckCircle2}
         />
         <StatCard
           title="المبالغ المعلقة"
@@ -49,7 +50,7 @@ export default function FinancialOverview({ financial }: Props) {
           trend="down"
           trendValue="يجب المتابعة"
           color="red"
-          icon="⏳"
+          icon={Clock}
         />
       </div>
 

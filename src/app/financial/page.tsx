@@ -5,7 +5,8 @@ import Sidebar from '@/components/ui/sidebar'
 import StatCard from '@/components/ui/stat-card'
 import StatusLine from '@/components/ui/status-line'
 import type { StatusType } from '@/components/ui/status-line'
-import { Printer, RefreshCw } from 'lucide-react'
+import { SkeletonStat, SkeletonCard } from '@/components/ui/skeleton'
+import { Printer, RefreshCw, DollarSign, TrendingUp, ArrowDownCircle, BarChart3 } from 'lucide-react'
 
 interface FinancialData {
   totalRevenue: number
@@ -201,12 +202,17 @@ export default function FinancialPage() {
     return (
       <div className="flex min-h-screen">
         <Sidebar />
-        <main className="flex-1 p-6">
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-white/5 rounded-xl w-48" />
-            <div className="grid grid-cols-4 gap-4">
-              {[1,2,3,4].map(i => <div key={i} className="h-32 bg-white/5 rounded-2xl" />)}
-            </div>
+        <main className="flex-1 p-6 space-y-6">
+          <div className="space-y-2">
+            <div className="h-7 w-36 bg-white/[0.03] rounded-lg animate-shimmer" />
+            <div className="h-3 w-56 bg-white/[0.03] rounded-md animate-shimmer" />
+          </div>
+          <div className="grid grid-cols-4 gap-4">
+            <SkeletonStat count={4} />
+          </div>
+          <div className="grid grid-cols-2 gap-6">
+            <SkeletonCard />
+            <SkeletonCard />
           </div>
         </main>
       </div>
@@ -267,10 +273,10 @@ export default function FinancialPage() {
 
         {/* Main Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <StatCard title="إجمالي الإيرادات" value={formatCurrency(data.totalRevenue)} icon="💰" color="emerald" />
-          <StatCard title="الإيرادات المتوقعة" value={formatCurrency(data.expectedRevenue)} icon="📈" color="blue" />
-          <StatCard title="المصروفات الشهرية" value={formatCurrency(data.monthlyExpenses)} icon="💸" color="red" />
-          <StatCard title="هامش الربح" value={`${data.profitMargin}%`} icon="📊" color={data.profitMargin >= 20 ? 'emerald' : 'amber'} />
+          <StatCard title="إجمالي الإيرادات" value={formatCurrency(data.totalRevenue)} icon={DollarSign} color="emerald" />
+          <StatCard title="الإيرادات المتوقعة" value={formatCurrency(data.expectedRevenue)} icon={TrendingUp} color="blue" />
+          <StatCard title="المصروفات الشهرية" value={formatCurrency(data.monthlyExpenses)} icon={ArrowDownCircle} color="red" />
+          <StatCard title="هامش الربح" value={`${data.profitMargin}%`} icon={BarChart3} color={data.profitMargin >= 20 ? 'emerald' : 'amber'} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
