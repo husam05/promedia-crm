@@ -73,12 +73,12 @@ export default function DecisionsPage() {
 
   if (loading || !data) {
     return (
-      <div className="flex min-h-screen bg-gray-950">
+      <div className="flex min-h-screen">
         <Sidebar />
         <main className="flex-1 p-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-800 rounded w-48" />
-            <div className="h-64 bg-gray-800 rounded-2xl" />
+            <div className="h-8 bg-white/5 rounded-xl w-48" />
+            <div className="h-64 bg-white/5 rounded-2xl" />
           </div>
         </main>
       </div>
@@ -86,25 +86,25 @@ export default function DecisionsPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-950">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 p-6 overflow-auto">
-        <div className="mb-6">
+        <div className="mb-6 animate-fade-in-down">
           <h1 className="text-2xl font-bold text-white">محرك القرارات الآلي</h1>
-          <p className="text-sm text-gray-400">نظام اتخاذ القرارات التلقائي والتنبيهات الذكية</p>
+          <p className="text-xs text-gray-500 mt-0.5">نظام اتخاذ القرارات التلقائي والتنبيهات الذكية</p>
         </div>
 
         {/* Status Bar */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <div className="glass-card p-4">
             <p className="text-xs text-gray-400">معدل التحصيل</p>
             <p className={`text-2xl font-bold ${data.collectionRate >= 70 ? 'text-emerald-400' : 'text-red-400'}`}>{data.collectionRate}%</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <div className="glass-card p-4">
             <p className="text-xs text-gray-400">قرارات نشطة</p>
             <p className="text-2xl font-bold text-amber-400">{data.decisions.length}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <div className="glass-card p-4">
             <p className="text-xs text-gray-400">نسبة المصروفات/الإيرادات</p>
             <p className={`text-2xl font-bold ${data.monthlyExpenses / data.monthlyRevenue > 0.8 ? 'text-red-400' : 'text-emerald-400'}`}>
               {Math.round((data.monthlyExpenses / data.monthlyRevenue) * 100)}%
@@ -122,10 +122,10 @@ export default function DecisionsPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+              className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                 activeTab === tab.id
-                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                  : 'bg-gray-900 text-gray-400 border border-gray-800 hover:bg-gray-800'
+                  ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+                  : 'bg-white/[0.02] text-gray-500 border border-white/[0.04] hover:bg-white/[0.04] hover:text-gray-300'
               }`}
             >
               {tab.label}
@@ -137,12 +137,12 @@ export default function DecisionsPage() {
         {activeTab === 'decisions' && (
           <div className="space-y-3">
             {data.decisions.length === 0 ? (
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+              <div className="glass-card p-8 text-center">
                 <p className="text-gray-400">لا توجد قرارات نشطة حالياً</p>
               </div>
             ) : (
               data.decisions.map((decision, i) => (
-                <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+                <div key={i} className="glass-card p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
@@ -169,7 +169,7 @@ export default function DecisionsPage() {
         {activeTab === 'rules' && (
           <div className="space-y-3">
             {data.rules.map(rule => (
-              <div key={rule.id} className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div key={rule.id} className="glass-card p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-white font-medium">{rule.name}</h3>
@@ -199,10 +199,10 @@ export default function DecisionsPage() {
                 <button
                   key={scenario.id}
                   onClick={() => simulateEmergency(scenario.id)}
-                  className={`p-4 rounded-2xl border text-right transition-all ${
+                  className={`p-4 rounded-2xl border text-right transition-all duration-200 ${
                     selectedScenario === scenario.id
-                      ? 'bg-red-500/10 border-red-500/30'
-                      : 'bg-gray-900 border-gray-800 hover:border-gray-700'
+                      ? 'bg-red-500/[0.06] border-red-500/15'
+                      : 'bg-white/[0.02] border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.03]'
                   }`}
                 >
                   <span className="text-2xl">{scenario.icon}</span>
@@ -213,7 +213,7 @@ export default function DecisionsPage() {
             </div>
 
             {emergencyResult && (
-              <div className="bg-gray-900 border border-red-500/20 rounded-2xl p-5">
+              <div className="glass-card p-5" style={{ borderColor: 'rgba(239, 68, 68, 0.1)' }}>
                 <h3 className="text-lg font-bold text-red-400 mb-4">نتيجة المحاكاة</h3>
 
                 <div className="bg-red-500/5 rounded-xl p-4 mb-4">

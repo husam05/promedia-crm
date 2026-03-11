@@ -11,8 +11,11 @@ export default function FinancialOverview({ financial }: Props) {
   const formatCurrency = (amount: number) => `${amount.toLocaleString()} ر.س`
 
   return (
-    <div>
-      <h2 className="text-lg font-bold text-white mb-4">النظرة المالية</h2>
+    <div className="animate-fade-in-up">
+      <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <span className="w-1 h-5 rounded-full bg-gradient-to-b from-cyan-400 to-purple-400" />
+        النظرة المالية
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="إجمالي الإيرادات"
@@ -51,21 +54,22 @@ export default function FinancialOverview({ financial }: Props) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+        {/* Profit Margin */}
+        <div className="glass-card p-5">
           <h3 className="text-sm font-medium text-gray-400 mb-3">هامش الربح</h3>
           <div className="flex items-end gap-4">
-            <span className="text-4xl font-bold text-white">{financial.profitMargin}%</span>
+            <span className="text-4xl font-bold text-white animate-count-up">{financial.profitMargin}%</span>
             <div className="flex-1">
-              <div className="h-3 bg-gray-800 rounded-full overflow-hidden">
+              <div className="h-2.5 bg-white/5 rounded-full overflow-hidden">
                 <div
-                  className={`h-full rounded-full transition-all ${
-                    financial.profitMargin >= 30 ? 'bg-emerald-500' :
-                    financial.profitMargin >= 15 ? 'bg-amber-500' : 'bg-red-500'
+                  className={`h-full rounded-full transition-all duration-1000 ${
+                    financial.profitMargin >= 30 ? 'bg-gradient-to-l from-emerald-400 to-emerald-600' :
+                    financial.profitMargin >= 15 ? 'bg-gradient-to-l from-amber-400 to-amber-600' : 'bg-gradient-to-l from-red-400 to-red-600'
                   }`}
                   style={{ width: `${Math.min(100, financial.profitMargin)}%` }}
                 />
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
+              <div className="flex justify-between mt-1.5 text-[10px] text-gray-600">
                 <span>0%</span>
                 <span>50%</span>
                 <span>100%</span>
@@ -74,22 +78,27 @@ export default function FinancialOverview({ financial }: Props) {
           </div>
         </div>
 
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+        {/* Revenue Forecast */}
+        <div className="glass-card p-5">
           <h3 className="text-sm font-medium text-gray-400 mb-3">توقعات الإيرادات (3 أشهر)</h3>
-          <div className="flex items-end gap-2 h-20">
+          <div className="flex items-end gap-3 h-20">
             {financial.revenueForcast.map((val, i) => {
               const maxVal = Math.max(...financial.revenueForcast)
               const height = maxVal > 0 ? (val / maxVal) * 100 : 0
               return (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                  <span className="text-xs text-gray-400">{formatCurrency(val)}</span>
-                  <div className="w-full bg-gray-800 rounded-t-lg overflow-hidden" style={{ height: '60px' }}>
+                  <span className="text-[11px] text-gray-400 font-medium">{formatCurrency(val)}</span>
+                  <div className="w-full bg-white/5 rounded-t-xl overflow-hidden" style={{ height: '60px' }}>
                     <div
-                      className="w-full bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-t-lg transition-all"
-                      style={{ height: `${height}%`, marginTop: `${100 - height}%` }}
+                      className="w-full rounded-t-xl transition-all duration-1000"
+                      style={{
+                        height: `${height}%`,
+                        marginTop: `${100 - height}%`,
+                        background: `linear-gradient(180deg, rgba(16, 185, 129, 0.6), rgba(6, 182, 212, 0.3))`,
+                      }}
                     />
                   </div>
-                  <span className="text-xs text-gray-500">شهر {i + 1}</span>
+                  <span className="text-[10px] text-gray-600">شهر {i + 1}</span>
                 </div>
               )
             })}

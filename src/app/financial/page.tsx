@@ -5,6 +5,7 @@ import Sidebar from '@/components/ui/sidebar'
 import StatCard from '@/components/ui/stat-card'
 import StatusLine from '@/components/ui/status-line'
 import type { StatusType } from '@/components/ui/status-line'
+import { Printer, RefreshCw } from 'lucide-react'
 
 interface FinancialData {
   totalRevenue: number
@@ -198,13 +199,13 @@ export default function FinancialPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gray-950">
+      <div className="flex min-h-screen">
         <Sidebar />
         <main className="flex-1 p-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-800 rounded w-48" />
+            <div className="h-8 bg-white/5 rounded-xl w-48" />
             <div className="grid grid-cols-4 gap-4">
-              {[1,2,3,4].map(i => <div key={i} className="h-32 bg-gray-800 rounded-2xl" />)}
+              {[1,2,3,4].map(i => <div key={i} className="h-32 bg-white/5 rounded-2xl" />)}
             </div>
           </div>
         </main>
@@ -216,28 +217,34 @@ export default function FinancialPage() {
   const formatCurrency = (n: number) => `${n.toLocaleString()} ر.س`
 
   return (
-    <div className="flex min-h-screen bg-gray-950">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 p-6 overflow-auto">
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start justify-between mb-4 animate-fade-in-down">
           <div>
             <h1 className="text-2xl font-bold text-white">الذكاء المالي</h1>
-            <p className="text-sm text-gray-400">تحليل مالي متقدم وتوقعات ذكية</p>
+            <p className="text-xs text-gray-500 mt-0.5">تحليل مالي متقدم وتوقعات ذكية</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={handlePrintFinancialReport}
-              className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm font-medium shadow-lg shadow-emerald-900/30"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-1px]"
+              style={{
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.1))',
+                border: '1px solid rgba(16, 185, 129, 0.2)',
+                color: '#10b981',
+              }}
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+              <Printer size={15} />
               طباعة التقرير المالي
             </button>
             <button
               onClick={handleRefresh}
-              className="bg-gray-800 text-gray-300 px-4 py-2.5 rounded-xl text-sm hover:bg-gray-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm text-gray-400 hover:text-gray-200 transition-all bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05]"
             >
-              تحديث البيانات
+              <RefreshCw size={14} />
+              تحديث
             </button>
           </div>
         </div>
@@ -253,7 +260,7 @@ export default function FinancialPage() {
 
         {/* Pricing Signal Alert */}
         {data.pricingSignal && (
-          <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 mb-6">
+          <div className="glass-card p-4 mb-6">
             <p className="text-red-400 font-medium">⚠️ إشارة تسعير: معدل التحصيل أقل من 70% لمدة 3 أشهر متتالية - يُنصح بمراجعة الأسعار</p>
           </div>
         )}
@@ -268,7 +275,7 @@ export default function FinancialPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Collection Meter */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+          <div className="glass-card p-5">
             <h2 className="text-lg font-bold text-white mb-4">مقياس التحصيل</h2>
             <div className="flex items-center gap-6">
               <div className="relative w-32 h-32">
@@ -303,7 +310,7 @@ export default function FinancialPage() {
           </div>
 
           {/* Revenue Forecast */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+          <div className="glass-card p-5">
             <h2 className="text-lg font-bold text-white mb-4">توقعات الإيرادات (6 أشهر)</h2>
             <div className="flex items-end gap-2 h-40">
               {data.forecast.map((val, i) => {
@@ -326,7 +333,7 @@ export default function FinancialPage() {
           </div>
 
           {/* Service Profitability */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+          <div className="glass-card p-5">
             <h2 className="text-lg font-bold text-white mb-4">ربحية الخدمات</h2>
             <div className="space-y-3">
               {data.serviceProfits.map((service, i) => (
@@ -355,7 +362,7 @@ export default function FinancialPage() {
           </div>
 
           {/* Historical Revenue */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+          <div className="glass-card p-5">
             <h2 className="text-lg font-bold text-white mb-4">الإيرادات التاريخية</h2>
             <div className="space-y-2">
               {data.historicalRevenue.slice(-6).map((item, i) => {

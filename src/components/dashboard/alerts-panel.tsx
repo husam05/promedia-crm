@@ -2,6 +2,7 @@
 
 import { Alert } from '@/types'
 import AlertBadge from '@/components/ui/alert-badge'
+import { Bell } from 'lucide-react'
 
 interface Props {
   alerts: Alert[]
@@ -13,20 +14,29 @@ export default function AlertsPanel({ alerts }: Props) {
     return severityOrder[a.severity] - severityOrder[b.severity]
   })
 
+  const unreadCount = alerts.filter(a => !a.isRead).length
+
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+    <div className="glass-card p-5 animate-fade-in-up stagger-5">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-white">التنبيهات</h2>
-        <span className="bg-red-500/20 text-red-400 text-xs px-2 py-1 rounded-full">
-          {alerts.filter(a => !a.isRead).length} جديد
-        </span>
+        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <Bell size={16} className="text-cyan-400" />
+          التنبيهات
+        </h2>
+        {unreadCount > 0 && (
+          <span className="bg-red-500/10 text-red-400 text-[11px] px-2.5 py-1 rounded-lg font-medium animate-pulse-glow">
+            {unreadCount} جديد
+          </span>
+        )}
       </div>
-      <div className="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+      <div className="space-y-2 max-h-96 overflow-y-auto">
         {sortedAlerts.map((alert) => (
           <div
             key={alert.id}
-            className={`p-3 rounded-xl border transition-all hover:bg-gray-800/50 ${
-              alert.isRead ? 'border-gray-800 opacity-60' : 'border-gray-700 bg-gray-800/30'
+            className={`p-3 rounded-xl border transition-all duration-200 hover:bg-white/[0.02] ${
+              alert.isRead
+                ? 'border-white/[0.03] opacity-50'
+                : 'border-white/[0.06] bg-white/[0.01]'
             }`}
           >
             <div className="flex items-start justify-between gap-2">
@@ -35,15 +45,15 @@ export default function AlertsPanel({ alerts }: Props) {
                   <AlertBadge severity={alert.severity} />
                   <span className="text-sm font-medium text-white">{alert.title}</span>
                 </div>
-                <p className="text-xs text-gray-400">{alert.message}</p>
+                <p className="text-[11px] text-gray-500 leading-relaxed">{alert.message}</p>
                 {alert.action && (
-                  <button className="mt-2 text-xs text-emerald-400 hover:text-emerald-300">
+                  <button className="mt-2 text-[11px] text-cyan-400 hover:text-cyan-300 transition-colors font-medium">
                     {alert.action} ←
                   </button>
                 )}
               </div>
               {!alert.isRead && (
-                <div className="w-2 h-2 rounded-full bg-emerald-400 mt-1 flex-shrink-0" />
+                <div className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5 flex-shrink-0 animate-pulse-glow" />
               )}
             </div>
           </div>

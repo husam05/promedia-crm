@@ -11,6 +11,7 @@ import ContractsTracker from '@/components/dashboard/contracts-tracker'
 import StatCard from '@/components/ui/stat-card'
 import StatusLine from '@/components/ui/status-line'
 import type { StatusType } from '@/components/ui/status-line'
+import { Printer, RefreshCw, Bell } from 'lucide-react'
 
 const paymentStatusConfig: Record<string, { label: string; color: string }> = {
   paid: { label: 'مدفوع', color: 'bg-emerald-500/20 text-emerald-400' },
@@ -257,15 +258,15 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gray-950">
+      <div className="flex min-h-screen">
         <Sidebar />
         <main className="flex-1 p-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-800 rounded w-48" />
+            <div className="h-8 bg-white/5 rounded-xl w-48" />
             <div className="grid grid-cols-4 gap-4">
-              {[1,2,3,4].map(i => <div key={i} className="h-32 bg-gray-800 rounded-2xl" />)}
+              {[1,2,3,4].map(i => <div key={i} className="h-32 bg-white/5 rounded-2xl" />)}
             </div>
-            <div className="h-72 bg-gray-800 rounded-2xl" />
+            <div className="h-72 bg-white/5 rounded-2xl" />
           </div>
         </main>
       </div>
@@ -280,35 +281,41 @@ export default function DashboardPage() {
   const dateStr = today.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })
 
   return (
-    <div className="flex min-h-screen bg-gray-950">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 p-6 overflow-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 animate-fade-in-down">
           <div>
             <h1 className="text-2xl font-bold text-white">لوحة التحكم</h1>
-            <p className="text-sm text-gray-400">{dayName}، {dateStr}</p>
+            <p className="text-xs text-gray-500 mt-0.5">{dayName}، {dateStr}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={handlePrintDashboard}
-              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-1px]"
+              style={{
+                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.1))',
+                border: '1px solid rgba(6, 182, 212, 0.2)',
+                color: '#06b6d4',
+              }}
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+              <Printer size={15} />
               طباعة التقرير
             </button>
             <button
               onClick={handleRefresh}
-              className="bg-gray-800 text-gray-300 px-4 py-2 rounded-xl text-sm hover:bg-gray-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm text-gray-400 hover:text-gray-200 transition-all duration-200 bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05]"
             >
-              تحديث البيانات
+              <RefreshCw size={14} />
+              تحديث
             </button>
             <div className="relative">
-              <button className="bg-gray-800 text-gray-300 p-2 rounded-xl hover:bg-gray-700 transition-colors">
-                🔔
+              <button className="p-2.5 rounded-xl text-gray-400 hover:text-gray-200 transition-all bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05]">
+                <Bell size={16} />
               </button>
               {data.alerts.filter(a => !a.isRead).length > 0 && (
-                <span className="absolute -top-1 -left-1 w-4 h-4 bg-red-500 rounded-full text-[10px] flex items-center justify-center text-white">
+                <span className="absolute -top-1 -left-1 w-4 h-4 bg-red-500 rounded-full text-[9px] flex items-center justify-center text-white font-medium">
                   {data.alerts.filter(a => !a.isRead).length}
                 </span>
               )}
@@ -327,8 +334,8 @@ export default function DashboardPage() {
 
         {/* Day of Truth Banner */}
         {isFirstOfMonth && (
-          <div className="bg-gradient-to-l from-emerald-500/20 to-blue-500/20 border border-emerald-500/30 rounded-2xl p-5 mb-6">
-            <h2 className="text-lg font-bold text-emerald-400 mb-2">📊 يوم الحقيقة - بداية الشهر</h2>
+          <div className="glass-card p-5 mb-6 animate-scale-in" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.06))', borderColor: 'rgba(16, 185, 129, 0.15)' }}>
+            <h2 className="text-lg font-bold text-emerald-400 mb-2">يوم الحقيقة - بداية الشهر</h2>
             <div className="grid grid-cols-4 gap-4 mt-3">
               <div>
                 <p className="text-xs text-gray-400">الإيرادات المتوقعة</p>
@@ -351,7 +358,7 @@ export default function DashboardPage() {
         )}
 
         {/* KPI Strip */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-3 gap-4 mb-6 animate-fade-in-up">
           <StatCard
             title="معدل التحصيل"
             value={`${data.health.collectionRate}%`}
@@ -401,10 +408,10 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Payments Section */}
-        <div className="mt-6 bg-gray-900 border border-gray-800 rounded-2xl p-5">
+        <div className="mt-6 glass-card p-5 animate-fade-in-up stagger-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              <span className="w-1 h-5 rounded-full bg-gradient-to-b from-emerald-400 to-cyan-400" />
               آخر المدفوعات
             </h2>
             <span className="text-xs text-gray-400">{data.recentPayments.length} دفعة</span>
@@ -413,20 +420,20 @@ export default function DashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-right text-xs text-gray-400 font-medium py-3 px-3">العميل</th>
-                  <th className="text-right text-xs text-gray-400 font-medium py-3 px-3">المبلغ</th>
-                  <th className="text-right text-xs text-gray-400 font-medium py-3 px-3">الاستحقاق</th>
-                  <th className="text-right text-xs text-gray-400 font-medium py-3 px-3">الحالة</th>
-                  <th className="text-right text-xs text-gray-400 font-medium py-3 px-3">التأخير</th>
-                  <th className="text-right text-xs text-gray-400 font-medium py-3 px-3">إجراء</th>
+                <tr className="border-b border-white/[0.04]">
+                  <th className="text-right text-[11px] text-gray-500 font-medium py-3 px-3">العميل</th>
+                  <th className="text-right text-[11px] text-gray-500 font-medium py-3 px-3">المبلغ</th>
+                  <th className="text-right text-[11px] text-gray-500 font-medium py-3 px-3">الاستحقاق</th>
+                  <th className="text-right text-[11px] text-gray-500 font-medium py-3 px-3">الحالة</th>
+                  <th className="text-right text-[11px] text-gray-500 font-medium py-3 px-3">التأخير</th>
+                  <th className="text-right text-[11px] text-gray-500 font-medium py-3 px-3">إجراء</th>
                 </tr>
               </thead>
               <tbody>
                 {data.recentPayments.map((payment) => {
                   const statusCfg = paymentStatusConfig[payment.status] || { label: payment.status, color: 'bg-gray-500/20 text-gray-400' }
                   return (
-                    <tr key={payment.id} className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
+                    <tr key={payment.id} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
                       <td className="py-3 px-3 text-sm text-white">{payment.clientId}</td>
                       <td className="py-3 px-3 text-sm text-white font-medium">{payment.amount.toLocaleString()} ر.س</td>
                       <td className="py-3 px-3 text-sm text-gray-400">{new Date(payment.dueDate).toLocaleDateString('ar-SA')}</td>

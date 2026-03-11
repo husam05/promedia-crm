@@ -9,6 +9,7 @@ import ConfirmDialog from '@/components/ui/confirm-dialog'
 import AddClientModal from '@/components/clients/add-client-modal'
 import EditClientModal from '@/components/clients/edit-client-modal'
 import ReceiptView from '@/components/clients/receipt-view'
+import { UserPlus, Search, Printer, Edit3, Pause, Play, Trash2, FileText } from 'lucide-react'
 
 const categoryConfig: Record<ClientCategory, { label: string; color: string; bg: string }> = {
   A: { label: 'مميز', color: 'text-emerald-400', bg: 'bg-emerald-500/20 border-emerald-500/30' },
@@ -198,20 +199,25 @@ export default function ClientsPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-950">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 p-6 overflow-auto">
         {/* Header with Add Button */}
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start justify-between mb-6 animate-fade-in-down">
           <div>
             <h1 className="text-2xl font-bold text-white">إدارة العملاء</h1>
-            <p className="text-sm text-gray-400">تصنيف ذكي وتحليل شامل للعملاء</p>
+            <p className="text-xs text-gray-500 mt-0.5">تصنيف ذكي وتحليل شامل للعملاء</p>
           </div>
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm font-medium shadow-lg shadow-emerald-900/30"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-1px] hover:shadow-lg"
+            style={{
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.1))',
+              border: '1px solid rgba(16, 185, 129, 0.2)',
+              color: '#10b981',
+            }}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+            <UserPlus size={16} />
             إضافة عميل
           </button>
         </div>
@@ -226,49 +232,52 @@ export default function ClientsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
-            <p className="text-xs text-gray-400">إجمالي العملاء</p>
-            <p className="text-2xl font-bold text-white">{stats.total}</p>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 animate-fade-in-up">
+          <div className="glass-card p-4">
+            <p className="text-[11px] text-gray-500">إجمالي العملاء</p>
+            <p className="text-2xl font-bold text-white mt-1">{stats.total}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
-            <p className="text-xs text-gray-400">عملاء نشطون</p>
-            <p className="text-2xl font-bold text-emerald-400">{stats.active}</p>
+          <div className="glass-card p-4">
+            <p className="text-[11px] text-gray-500">عملاء نشطون</p>
+            <p className="text-2xl font-bold text-emerald-400 mt-1">{stats.active}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
-            <p className="text-xs text-gray-400">عملاء مخاطر</p>
-            <p className="text-2xl font-bold text-red-400">{stats.risk}</p>
+          <div className="glass-card p-4">
+            <p className="text-[11px] text-gray-500">عملاء مخاطر</p>
+            <p className="text-2xl font-bold text-red-400 mt-1">{stats.risk}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
-            <p className="text-xs text-gray-400">متوسط التقييم</p>
-            <p className="text-2xl font-bold text-blue-400">{stats.avgScore}</p>
+          <div className="glass-card p-4">
+            <p className="text-[11px] text-gray-500">متوسط التقييم</p>
+            <p className="text-2xl font-bold text-blue-400 mt-1">{stats.avgScore}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
-            <p className="text-xs text-gray-400">الإيراد الشهري</p>
-            <p className="text-2xl font-bold text-purple-400">{stats.totalRevenue.toLocaleString()}</p>
-            <p className="text-[10px] text-gray-500">ر.س</p>
+          <div className="glass-card p-4">
+            <p className="text-[11px] text-gray-500">الإيراد الشهري</p>
+            <p className="text-2xl font-bold text-purple-400 mt-1">{stats.totalRevenue.toLocaleString()}</p>
+            <p className="text-[10px] text-gray-600">ر.س</p>
           </div>
         </div>
 
         {/* Search, Filter & Status */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          <input
-            type="text"
-            placeholder="البحث بالاسم، الشركة، البريد أو الهاتف..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 min-w-[200px] bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 text-sm"
-          />
+        <div className="flex flex-wrap gap-3 mb-6 animate-fade-in-up stagger-2">
+          <div className="relative flex-1 min-w-[200px]">
+            <Search size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600" />
+            <input
+              type="text"
+              placeholder="البحث بالاسم، الشركة، البريد أو الهاتف..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl pr-10 pl-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500/30 text-sm transition-colors"
+            />
+          </div>
           {/* Category Filter */}
           <div className="flex gap-1.5">
             {(['all', 'A', 'B', 'C'] as const).map(cat => (
               <button
                 key={cat}
                 onClick={() => setFilterCategory(cat)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                className={`px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
                   filterCategory === cat
-                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                    : 'bg-gray-900 text-gray-400 border border-gray-800 hover:bg-gray-800'
+                    ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+                    : 'bg-white/[0.02] text-gray-500 border border-white/[0.04] hover:bg-white/[0.04] hover:text-gray-300'
                 }`}
               >
                 {cat === 'all' ? 'الكل' : `فئة ${cat}`}
@@ -281,10 +290,10 @@ export default function ClientsPage() {
               <button
                 key={st}
                 onClick={() => setFilterStatus(st)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                className={`px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
                   filterStatus === st
-                    ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                    : 'bg-gray-900 text-gray-400 border border-gray-800 hover:bg-gray-800'
+                    ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+                    : 'bg-white/[0.02] text-gray-500 border border-white/[0.04] hover:bg-white/[0.04] hover:text-gray-300'
                 }`}
               >
                 {st === 'all' ? 'كل الحالات' : statusConfig[st].label}
@@ -327,7 +336,7 @@ export default function ClientsPage() {
         ) : (
           <div className="space-y-3">
             {filtered.map(client => (
-              <div key={client.id} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden transition-all hover:border-gray-700 group">
+              <div key={client.id} className="glass-card overflow-hidden group">
                 {/* Client Row */}
                 <div className="p-4">
                   <div className="flex items-center justify-between">
@@ -409,7 +418,7 @@ export default function ClientsPage() {
 
                 {/* Expanded Details */}
                 {expandedId === client.id && (
-                  <div className="border-t border-gray-800 p-4 bg-gray-800/30">
+                  <div className="border-t border-white/[0.04] p-4 bg-white/[0.01] animate-fade-in-up">
                     {/* Metrics Bars */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>

@@ -91,12 +91,12 @@ export default function EditClientModal({ isOpen, client, onClose, onSuccess, on
     }
   }
 
-  const inputClass = (field: string) => `w-full bg-gray-800 border ${errors[field] ? 'border-red-500' : 'border-gray-700'} rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors`
+  const inputClass = (field: string) => `w-full bg-white/[0.03] border ${errors[field] ? 'border-red-500/50' : 'border-white/[0.06]'} rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-cyan-500/30 transition-colors`
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-2xl mx-4 shadow-2xl max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-5 border-b border-gray-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md" onClick={onClose}>
+      <div className="w-full max-w-2xl mx-4 max-h-[90vh] overflow-auto animate-scale-in rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(12, 18, 34, 0.98))', border: '1px solid rgba(255, 255, 255, 0.08)', boxShadow: '0 24px 80px rgba(0,0,0,0.5)' }} onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-5 border-b border-white/[0.04]">
           <div>
             <h2 className="text-lg font-bold text-white">تعديل بيانات العميل</h2>
             <p className="text-xs text-gray-400 mt-0.5">#{client.id} - {client.name}</p>
@@ -134,7 +134,7 @@ export default function EditClientModal({ isOpen, client, onClose, onSuccess, on
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs text-gray-400 mb-1.5">تصنيف العميل</label>
-              <select value={form.category} onChange={e => setForm({...form, category: e.target.value as ClientCategory})} className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500">
+              <select value={form.category} onChange={e => setForm({...form, category: e.target.value as ClientCategory})} className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500/30 transition-colors">
                 <option value="A">فئة A - مميز</option>
                 <option value="B">فئة B - عادي</option>
                 <option value="C">فئة C - يحتاج متابعة</option>
@@ -142,7 +142,7 @@ export default function EditClientModal({ isOpen, client, onClose, onSuccess, on
             </div>
             <div>
               <label className="block text-xs text-gray-400 mb-1.5">الحالة</label>
-              <select value={form.status} onChange={e => setForm({...form, status: e.target.value as ClientStatus})} className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500">
+              <select value={form.status} onChange={e => setForm({...form, status: e.target.value as ClientStatus})} className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500/30 transition-colors">
                 <option value="active">نشط</option>
                 <option value="inactive">غير نشط</option>
                 <option value="suspended">موقوف</option>
@@ -176,11 +176,11 @@ export default function EditClientModal({ isOpen, client, onClose, onSuccess, on
 
           <div>
             <label className="block text-xs text-gray-400 mb-1.5">ملاحظات</label>
-            <textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-emerald-500 resize-none" />
+            <textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={2} className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-cyan-500/30 resize-none transition-colors" />
           </div>
 
           {/* Client metrics (read-only) */}
-          <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-3">
+          <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl p-3">
             <p className="text-xs text-gray-400 mb-2 font-medium">مؤشرات العميل (حساب تلقائي)</p>
             <div className="grid grid-cols-4 gap-3">
               <div className="text-center">
@@ -203,11 +203,11 @@ export default function EditClientModal({ isOpen, client, onClose, onSuccess, on
           </div>
         </div>
 
-        <div className="flex gap-3 p-5 border-t border-gray-800">
-          <button onClick={onClose} className="flex-1 px-4 py-2.5 bg-gray-800 text-gray-300 rounded-xl hover:bg-gray-700 transition-colors text-sm font-medium">
+        <div className="flex gap-3 p-5 border-t border-white/[0.04]">
+          <button onClick={onClose} className="flex-1 px-4 py-2.5 bg-white/[0.03] border border-white/[0.06] text-gray-400 rounded-xl hover:bg-white/[0.05] hover:text-gray-200 transition-all text-sm font-medium">
             إلغاء
           </button>
-          <button onClick={handleSubmit} className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-medium">
+          <button onClick={handleSubmit} className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:translate-y-[-1px]" style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.15))', border: '1px solid rgba(59, 130, 246, 0.2)', color: '#3b82f6' }}>
             حفظ التعديلات
           </button>
         </div>

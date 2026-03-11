@@ -5,6 +5,7 @@ import Sidebar from '@/components/ui/sidebar'
 import ProgressRing from '@/components/ui/progress-ring'
 import StatusLine from '@/components/ui/status-line'
 import type { StatusType } from '@/components/ui/status-line'
+import { Printer } from 'lucide-react'
 
 const weeklyReports = [
   {
@@ -206,20 +207,25 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-950">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 p-6 overflow-auto">
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start justify-between mb-4 animate-fade-in-down">
           <div>
             <h1 className="text-2xl font-bold text-white">التقارير الأسبوعية</h1>
-            <p className="text-sm text-gray-400">تقرير CEO التلقائي - يُرسل كل أحد الساعة 8 صباحاً</p>
+            <p className="text-xs text-gray-500 mt-0.5">تقرير CEO التلقائي - يُرسل كل أحد الساعة 8 صباحاً</p>
           </div>
           <button
             onClick={handlePrintReport}
-            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm font-medium shadow-lg shadow-emerald-900/30"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-1px]"
+            style={{
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.1))',
+              border: '1px solid rgba(16, 185, 129, 0.2)',
+              color: '#10b981',
+            }}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+            <Printer size={15} />
             طباعة التقرير
           </button>
         </div>
@@ -244,10 +250,10 @@ export default function ReportsPage() {
                 <button
                   key={report.id}
                   onClick={() => setSelectedReport(report)}
-                  className={`w-full text-right p-4 rounded-2xl border transition-all ${
+                  className={`w-full text-right p-4 rounded-2xl border transition-all duration-200 ${
                     selectedReport.id === report.id
-                      ? 'bg-emerald-500/10 border-emerald-500/30'
-                      : 'bg-gray-900 border-gray-800 hover:border-gray-700'
+                      ? 'bg-cyan-500/[0.06] border-cyan-500/15'
+                      : 'bg-white/[0.02] border-white/[0.04] hover:border-white/[0.08] hover:bg-white/[0.03]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
@@ -285,7 +291,7 @@ export default function ReportsPage() {
           {/* Report Content */}
           <div className="lg:col-span-3 space-y-6">
             {/* Header */}
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+            <div className="glass-card p-5">
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-bold text-white">تقرير الأسبوع: {selectedReport.period}</h2>
@@ -306,19 +312,19 @@ export default function ReportsPage() {
 
             {/* KPIs */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">الإيرادات</p>
                 <p className="text-xl font-bold text-emerald-400">{selectedReport.revenue.toLocaleString()} ر.س</p>
               </div>
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">المصروفات</p>
                 <p className="text-xl font-bold text-red-400">{selectedReport.expenses.toLocaleString()} ر.س</p>
               </div>
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">الربح</p>
                 <p className="text-xl font-bold text-blue-400">{selectedReport.profit.toLocaleString()} ر.س</p>
               </div>
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">التحصيل</p>
                 <p className={`text-xl font-bold ${selectedReport.collectionRate >= 70 ? 'text-emerald-400' : 'text-amber-400'}`}>
                   {selectedReport.collectionRate}%
@@ -328,15 +334,15 @@ export default function ReportsPage() {
 
             {/* Details */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">عملاء جدد</p>
                 <p className="text-2xl font-bold text-emerald-400">{selectedReport.newClients}</p>
               </div>
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">عملاء مفقودون</p>
                 <p className="text-2xl font-bold text-red-400">{selectedReport.lostClients}</p>
               </div>
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+              <div className="glass-card p-4">
                 <p className="text-xs text-gray-400">عملاء مخاطر</p>
                 <p className="text-2xl font-bold text-amber-400">{selectedReport.riskClients}</p>
               </div>
@@ -344,7 +350,7 @@ export default function ReportsPage() {
 
             {/* Highlights & Recommendations */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+              <div className="glass-card p-5">
                 <h3 className="text-sm font-medium text-amber-400 mb-3">أبرز الأحداث</h3>
                 <div className="space-y-2">
                   {selectedReport.highlights.map((h, i) => (
@@ -355,7 +361,7 @@ export default function ReportsPage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+              <div className="glass-card p-5">
                 <h3 className="text-sm font-medium text-emerald-400 mb-3">التوصيات</h3>
                 <div className="space-y-2">
                   {selectedReport.recommendations.map((r, i) => (

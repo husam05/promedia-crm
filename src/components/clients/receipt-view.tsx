@@ -117,10 +117,10 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={handleClose}>
-      <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-2xl mx-4 shadow-2xl max-h-[90vh] overflow-auto" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md" onClick={handleClose}>
+      <div className="w-full max-w-2xl mx-4 max-h-[90vh] overflow-auto animate-scale-in rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(12, 18, 34, 0.98))', border: '1px solid rgba(255, 255, 255, 0.08)', boxShadow: '0 24px 80px rgba(0,0,0,0.5)' }} onClick={e => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-800">
+        <div className="flex items-center justify-between p-5 border-b border-white/[0.04]">
           <div>
             <h2 className="text-lg font-bold text-white">
               {step === 'form' ? 'إنشاء إيصال' : 'معاينة الإيصال'}
@@ -141,7 +141,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                     type="number"
                     value={form.amount}
                     onChange={e => setForm({...form, amount: e.target.value})}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500/30 transition-colors"
                     placeholder={String(client.monthlyFee)}
                     min="0"
                   />
@@ -151,7 +151,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   <select
                     value={form.paymentMethod}
                     onChange={e => setForm({...form, paymentMethod: e.target.value as typeof form.paymentMethod})}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500/30 transition-colors"
                   >
                     <option value="bank_transfer">تحويل بنكي</option>
                     <option value="cash">نقدي</option>
@@ -167,7 +167,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   type="date"
                   value={form.paymentDate}
                   onChange={e => setForm({...form, paymentDate: e.target.value})}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500/30 transition-colors"
                 />
               </div>
 
@@ -177,7 +177,7 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   type="text"
                   value={form.description}
                   onChange={e => setForm({...form, description: e.target.value})}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-cyan-500/30 transition-colors"
                   placeholder={`سداد رسوم خدمة - ${client.company}`}
                 />
               </div>
@@ -188,14 +188,14 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
                   value={form.notes}
                   onChange={e => setForm({...form, notes: e.target.value})}
                   rows={2}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-emerald-500 resize-none"
+                  className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-cyan-500/30 transition-colors resize-none"
                   placeholder="ملاحظات إضافية..."
                 />
               </div>
 
               {/* Preview summary */}
               {form.amount && (
-                <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4">
+                <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl p-4">
                   <p className="text-xs text-gray-400 mb-2 font-medium">ملخص الإيصال</p>
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-sm">
@@ -215,11 +215,11 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
               )}
             </div>
 
-            <div className="flex gap-3 p-5 border-t border-gray-800">
-              <button onClick={handleClose} className="flex-1 px-4 py-2.5 bg-gray-800 text-gray-300 rounded-xl hover:bg-gray-700 transition-colors text-sm font-medium">
+            <div className="flex gap-3 p-5 border-t border-white/[0.04]">
+              <button onClick={handleClose} className="flex-1 px-4 py-2.5 bg-white/[0.03] border border-white/[0.06] text-gray-400 rounded-xl hover:bg-white/[0.05] hover:text-gray-200 transition-all text-sm font-medium">
                 إلغاء
               </button>
-              <button onClick={handleGenerate} className="flex-1 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm font-medium">
+              <button onClick={handleGenerate} className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:translate-y-[-1px]" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.15))', border: '1px solid rgba(16, 185, 129, 0.2)', color: '#10b981' }}>
                 إنشاء الإيصال
               </button>
             </div>
@@ -311,15 +311,14 @@ export default function ReceiptView({ isOpen, client, onClose, onStatusChange }:
               </div>
             </div>
 
-            <div className="flex gap-3 p-5 border-t border-gray-800">
-              <button onClick={handleClose} className="flex-1 px-4 py-2.5 bg-gray-800 text-gray-300 rounded-xl hover:bg-gray-700 transition-colors text-sm font-medium">
+            <div className="flex gap-3 p-5 border-t border-white/[0.04]">
+              <button onClick={handleClose} className="flex-1 px-4 py-2.5 bg-white/[0.03] border border-white/[0.06] text-gray-400 rounded-xl hover:bg-white/[0.05] hover:text-gray-200 transition-all text-sm font-medium">
                 إغلاق
               </button>
-              <button onClick={() => { setStep('form'); setReceipt(null) }} className="px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-medium">
+              <button onClick={() => { setStep('form'); setReceipt(null) }} className="px-4 py-2.5 rounded-xl text-sm font-medium transition-all" style={{ background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.15)', color: '#3b82f6' }}>
                 إيصال جديد
               </button>
-              <button onClick={handlePrint} className="flex-1 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm font-medium flex items-center justify-center gap-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+              <button onClick={handlePrint} className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:translate-y-[-1px] flex items-center justify-center gap-2" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.15))', border: '1px solid rgba(16, 185, 129, 0.2)', color: '#10b981' }}>
                 طباعة الإيصال
               </button>
             </div>

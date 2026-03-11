@@ -10,7 +10,9 @@ const notoSansArabic = Noto_Sans_Arabic({
 })
 
 export const viewport: Viewport = {
-  themeColor: '#0a0e1a',
+  themeColor: '#060b18',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export const metadata: Metadata = {
@@ -27,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className="dark">
-      <body className={`${notoSansArabic.variable} ${notoSansArabic.className} antialiased`}>
+      <body className={`${notoSansArabic.variable} ${notoSansArabic.className} antialiased noise-overlay`}>
         {children}
       </body>
     </html>
